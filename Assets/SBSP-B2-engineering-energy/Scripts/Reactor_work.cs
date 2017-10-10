@@ -78,21 +78,51 @@ public class Reactor_work : MonoBehaviour {
 		
 		if (energy.GetEnergyType() == "bmatter") { // Fusion reactor power creation
 
-			CreateEnergy(bmatter); // Call a method to create energy		
+			CreateEnergyReactor(bmatter); // Call a method to create energy		
 		
-		} else {
-			// Otherwise return plasma
-			//return plasma;
+		} 
+
+		else if (energy.GetEnergyType() == "plasma") { // Fusion reactor power creation
+
+			CreateEnergyReactor(plasma); // Call a method to create energy		
+
 		}
-	}// end of fusion action
+			
+		else if (energy.GetEnergyType() == "sun") { // Fusion reactor power creation
 
-	// Create energy where 100x energy units will be equivalent to 10x plasma 
-	public void CreateEnergy(int plasma){
-		// Energy will be quivalent to 10 plasma units at least
-		energy = plasma * 10;
-	}// end of CreateEnergy method
+			CreateEnergyReactor(sun); // Call a method to create energy		
+
+		}
+			
+		else {
+			// Incorrect energy type		
+		}
+	}
+		
 
 
+	public void CreateEnergyReactor(int bmatter){ // Create energy where 1x energy unit will be equivalent to 1x black matter unit
+		
+		energy = bmatter * 1; // Energy will be quivalent to 1 black matter unit
+		CreateEnergy(bmatter); // The time it will take to produce 1 unit of energy 
+	}
+
+
+	public void CreateEnergy(int plasma){ // Create energy where 1x energy unit will be equivalent to 10x plasma units
+
+		energy = plasma * 10; // Energy will be quivalent to 10 plasma units at least
+		CreateEnergy(plasma);// The time it will take to produce 1 unit of energy 
+	}
+
+
+	public void CreateEnergy(int bmatter){ // Create energy where 1x energy unit will be equivalent to 100x sun energy units
+
+		energy = sun * 100; // Energy will be quivalent to 100 sun energy units 
+		CreateEnergy(sun);// The time it will take to produce 1 unit of energy 
+	}
+
+
+	/*
 	// If we reach over - production of energy 
 	public void StoreEnergy(){
 
@@ -104,5 +134,7 @@ public class Reactor_work : MonoBehaviour {
 			energy = energy - 500;
 		}
 	}// end of StoreEnergy method
+	*/
+
 
 }// End of Class
