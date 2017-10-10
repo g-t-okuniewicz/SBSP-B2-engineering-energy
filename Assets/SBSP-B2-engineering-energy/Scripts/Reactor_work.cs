@@ -6,94 +6,80 @@ using UnityEngine.UI;
 public class Reactor_work : MonoBehaviour {
 
 	public Slider energyLevel; //Will be sliders later on
-	public bool energyOK; // Energy good / no
-	public int plasma; // Resources from inventory
-	public int energy; // Usable energy item
 	public GameObject reactor; // Reactor prefab
-	//public Inventory inventory; // Referencing the Inventory script from Mapping team 
-	//public GameObject energyStorage; // Energy storage
-	public float energyStorage; // For storing energy
+
+	public int bmatter;// Resources from inventory
+	public int plasma; // Resources from inventory
+	public int sun;    // Resources from inventory
+
+	public EnergyStorage energyStorage; // External energy storage
+	public Energy energy; // Energy script
+	public Energy_conversion energy_conversion;
 
 
-	// On start check all the initial values
-	void Start(){	
-		// Calling the inventory script
-		//inventory = GetComponent<Inventory> (); 
-		// Plasma to initial because none present
-		plasma = 0; 
-		// No energy because no resources
-		energy = 0; 
-		// Energy level will be negative since no power
-		energyOK = false;
-		// Show the energy level
-		//energyLevel = "Current energy level is: 0";
-		// Set the current energy storage value
-		energyStorage = 0;
-	}// end start
+	void Awake(){
+		energy = new Energy ();
+		energyStorage = new EnergyStorage ();
+		energy_conversion = new Energy_conversion ();
+	}
 
 
-	// Keep checking these parameters
-	void Update(){ 
-		// Checking resources 
-		CheckResource (); 
-		// Checking energy levels
-		CheckEnergy (); 
-	}// end of Update
+
+	void Start(){	// On start check all the initial values
 
 
-	// Check the levels for resources
-	public void CheckResource(){
+		energy.GetEnergyUnit(); // Get current energy levels
+
+
+		energyStorage = energyStorage.GetQuantity(); // Set the current energy storage value
+
+	}
+
+
+	void Update(){ // Keep checking these parameters
 		
-		// Chech if there are more than 10 plasma units
-		if (energyStorage >= 10) {
-			//If there is add 10 to plasma 
-			plasma = plasma + 10;
+		CheckEnergy (); // Checking energy levels
+	}
+
+
+
+	public void CheckEnergy(){ // Checking the energy levels
+
+
+		if (energyStorage.GetQuantity() == 0) { // The if we need to create more energy
+
+			FusionAction (); // Call a class that creates fusion within a reactor to create heat for the energy production
+
 		} 
-		else {
-			// Notify the other team that we need resources
-			// Print message that we need resources
+
+
+
+		else if (energy.GetEnergyUnit <= 0) { // If the energy level is negative
+			/*
+			 * 
+			 * STOPPING THE PROCESS AND REQUESTING FOR MORE RAW MATERIALS
+			 * 
+			 * 
+			 */
+		} 
+
+
+
+		else if (energy.GetEnergyUnit >= 500) { // If we create too much energy that could only be stored the reactor
+
+			energyStorage.SetCurrentCapacity (energyStorage.GetCurrentCapacity + 500); // Call a method to store the energy
+
 		}
-	}// end of getting resources
+	}
 
 
-	// Checking the energy levels
-	public void CheckEnergy(){
-		// The if we need to create more energy
-		if (energy == 0) {
-			// Call a method that creates fusion within a reactor to create heat for the energy production
-			FusionAction ();
-		} 
-		// If the energy level is negative
-		else if (energy <= 0) {
-			// Print out a message to the main controller or within a control room
-			//Debug.Log ("<color=red>Fatal Error:</color> The system has ", energy);
-		} 
-		// Stop the system
-		else if (energy == 100) {
-			// If energy actaully reaches a 100 units, notify the user and the command centre
-			//Debug.Log ("<color=green>Target Reached:</color> Energy levels have reached " + energy);
-			energyOK = true;
-			// Notifying the user with the current level of energy
-			//energyLevel = (energy);
-			// Double check the resources just in case
-			CheckResource ();
-		} 
-		// If we create too much energy that could only be stored the reactor
-		else if (energy >= 500) {
-			// Notidfy the user and the control centre
-			//Debug.Log ("<color=orange>Max Capacity reached! </color> All excess energy will now be stored" + energy);
-			// Call a method to store the energy
-			StoreEnergy ();
-		}
-	}// end of CheckEnergy method
 
+	public void FusionAction() { // Fusion reactor power creation
+		
+		if (energy.GetEnergyType() == "bmatter") { // Fusion reactor power creation
 
-	// Fusion reactor power creation
-	public void FusionAction() {
-		// If we get 10 plasma units, create a fusion
-		if (plasma >= 10) {
-			// Call a method to create energy
-			CreateEnergy(plasma);
+			CreateEnergy(bmatter); // Call a method to create energy		
+		
 		} else {
 			// Otherwise return plasma
 			//return plasma;
