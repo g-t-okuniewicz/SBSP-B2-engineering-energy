@@ -5,14 +5,13 @@ using UnityEngine;
 public class CreateEnergy : MonoBehaviour {
 
 	public int time;
-	public int quantity;
 	public Energy energy;
 
 	public CreateEnergy(){
 		energy = new Energy ();
 	}
 
-	void CheckType(string type){
+	public void CheckType(string type){
 		if (type == "bMatter") {
 			time += 60;
 		} else if (type == "plasma") {
@@ -22,7 +21,4 @@ public class CreateEnergy : MonoBehaviour {
 		}
 	}
 
-	void CurrentQuantity(){
-		energy.GetQuantity ();
-	}
 }

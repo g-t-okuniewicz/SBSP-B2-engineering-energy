@@ -15,12 +15,13 @@ public class Reactor_work : MonoBehaviour {
 	public EnergyStorage energyStorage; // External energy storage
 	public Energy energy; // Energy script
 	public Energy_conversion energy_conversion;
-
+	public CreateEnergy createEnergy;
 
 	void Awake(){
 		energy = new Energy ();
 		energyStorage = new EnergyStorage ();
 		energy_conversion = new Energy_conversion ();
+		createEnergy = new CreateEnergy ();
 	}
 
 
@@ -31,7 +32,7 @@ public class Reactor_work : MonoBehaviour {
 		energy.GetEnergyUnit(); // Get current energy levels
 
 
-		energyStorage = energyStorage.GetQuantity(); // Set the current energy storage value
+		energy.GetEnergyQuantity (); // Set the current energy storage value
 
 	}
 
@@ -46,7 +47,7 @@ public class Reactor_work : MonoBehaviour {
 	public void CheckEnergy(){ // Checking the energy levels
 
 
-		if (energyStorage.GetQuantity() == 0) { // The if we need to create more energy
+		if (energy.GetEnergyQuantity == 0) { // The if we need to create more energy
 
 			FusionAction (); // Call a class that creates fusion within a reactor to create heat for the energy production
 
@@ -54,7 +55,7 @@ public class Reactor_work : MonoBehaviour {
 
 
 
-		else if (energy.GetEnergyUnit <= 0) { // If the energy level is negative
+		else if (energy.GetEnergyQuantity <= 0) { // If the energy level is negative
 			/*
 			 * 
 			 * STOPPING THE PROCESS AND REQUESTING FOR MORE RAW MATERIALS
@@ -65,10 +66,10 @@ public class Reactor_work : MonoBehaviour {
 
 
 
-		else if (energy.GetEnergyUnit >= 500) { // If we create too much energy that could only be stored the reactor
+		else if (energy.GetEnergyQuantity >= 500) { // If we create too much energy that could only be stored the reactor
 
 			energyStorage.SetCurrentCapacity (energyStorage.GetCurrentCapacity + 500); // Call a method to store the energy
-
+			energy.SetEnergyQuantity(energy.GetEnergyQuantity - 500);
 		}
 	}
 
@@ -104,21 +105,20 @@ public class Reactor_work : MonoBehaviour {
 	public void CreateEnergyReactor(int bmatter){ // Create energy where 1x energy unit will be equivalent to 1x black matter unit
 		
 		energy = bmatter * 1; // Energy will be quivalent to 1 black matter unit
-		CreateEnergy(bmatter); // The time it will take to produce 1 unit of energy 
+		createEnergy.CheckType(energy.GetEnergyType()); // The time it will take to produce 1 unit of energy 
 	}
 
 
-	public void CreateEnergy(int plasma){ // Create energy where 1x energy unit will be equivalent to 10x plasma units
+	public void CreateEnergyReactor(int plasma){ // Create energy where 1x energy unit will be equivalent to 10x plasma units
 
 		energy = plasma * 10; // Energy will be quivalent to 10 plasma units at least
-		CreateEnergy(plasma);// The time it will take to produce 1 unit of energy 
+		createEnergy.CheckType(energy.GetEnergyType()); // The time it will take to produce 1 unit of energy 
 	}
 
-
-	public void CreateEnergy(int bmatter){ // Create energy where 1x energy unit will be equivalent to 100x sun energy units
+	public void CreateEnergyReactor(int sun){ // Create energy where 1x energy unit will be equivalent to 100x sun energy units
 
 		energy = sun * 100; // Energy will be quivalent to 100 sun energy units 
-		CreateEnergy(sun);// The time it will take to produce 1 unit of energy 
+		createEnergy.CheckType(energy.GetEnergyType()); // The time it will take to produce 1 unit of energy 
 	}
 
 
