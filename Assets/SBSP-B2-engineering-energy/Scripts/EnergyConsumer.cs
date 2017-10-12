@@ -39,21 +39,7 @@ public class EnergyConsumer {
 	}*/
 
 	//----
-	public float CurrentEnergyMultiplier {
-		get {
-			return currentEnergyMultiplier;
-		}
-		set  {
-			if (value <= MAX_ENERGY_OVERDRIVE) {
-				currentEnergyMultiplier = value;
-			} else if (value > MAX_ENERGY_OVERDRIVE) {
-				currentEnergyMultiplier = MAX_ENERGY_OVERDRIVE;
-			} else {
-				currentEnergyMultiplier = 0;
-			}
-		}
-		
-	}
+	public float CurrentEnergyMultiplier { get { return currentEnergyMultiplier; } }
 
 	public float EnergyConsumption { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
 
@@ -65,7 +51,16 @@ public class EnergyConsumer {
 
 	public void SetSliders(Slider[] sliders) {
 		powerSlider = sliders [0];
+		powerSlider.minValue = 0;
+		powerSlider.maxValue = MAX_ENERGY_OVERDRIVE;
+		powerSlider.onValueChanged.AddListener (delegate {
+			UpdateEnergyMultiplier ();
+		});
 		coolantSlider = sliders [1];
 		heatSlider = sliders [2];
+	}
+
+	public void UpdateEnergyMultiplier () {
+		currentEnergyMultiplier = powerSlider.value;
 	}
 }

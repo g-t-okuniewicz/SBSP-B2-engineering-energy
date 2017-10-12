@@ -13,22 +13,12 @@ public class EnergyDistributionView : MonoBehaviour {
 	private List<GameObject> sliderGroups;
 
 	void Awake() {
-		string message = "Connected consumers:\n";
+		//string message = "Connected consumers:\n";
 		EnergyDistributionController distController = GetComponent<EnergyDistributionController> ();
 		distModel = distController.DistributionModel;
 		consumers = distModel.Consumers;
 
-		foreach (EnergyConsumer consumer in consumers) {
-			message += "" 
-				+ consumer.Name.ToUpper() 
-				+ " pwr setting: " 
-				+ consumer.CurrentEnergyMultiplier 
-				+ " pwr cons.: "
-				+ consumer.EnergyConsumption
-				+ "\n";
-		}
-
-		connectedConsumers.text = message;
+		UpdateConnectedConsumersText ();
 
 		//-------------------
 		sliderGroups = new List<GameObject> ();
@@ -46,6 +36,10 @@ public class EnergyDistributionView : MonoBehaviour {
 
 	}
 
+	void FixedUpdate () {
+		UpdateConnectedConsumersText ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		
@@ -54,5 +48,19 @@ public class EnergyDistributionView : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void UpdateConnectedConsumersText () {
+		string message = "Connected consumers:\n";
+		foreach (EnergyConsumer consumer in consumers) {
+			message += "" 
+				+ consumer.Name.ToUpper() 
+				+ " pwr setting: " 
+				+ consumer.CurrentEnergyMultiplier 
+				+ " pwr cons.: "
+				+ consumer.EnergyConsumption
+				+ "\n";
+		}
+		connectedConsumers.text = message;
 	}
 }
