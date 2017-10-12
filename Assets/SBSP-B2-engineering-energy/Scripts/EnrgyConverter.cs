@@ -9,7 +9,7 @@ public class EnrgyConverter : MonoBehaviour {
 	public int plasma;
 	public string requestDarkMatter = "We need more plasma";
 	public string requestGemStone = "We need more Gems";
-	public Text gem;
+	public Text gem;//
 
 	//public Inventory inventory; // Referencing the Inventory script from Mapping team 
 
