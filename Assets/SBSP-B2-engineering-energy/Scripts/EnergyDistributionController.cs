@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class EnergyDistributionController : MonoBehaviour {
 
-
-
 	private EnergyDistributionModel distModel;
-
 
 	void Awake () {
 		distModel = new EnergyDistributionModel ();
-		//consumers = distModel.Consumers;
-
 	}
 
 	// Use this for initialization
