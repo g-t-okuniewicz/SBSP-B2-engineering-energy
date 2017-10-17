@@ -2,29 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnergyStorage : MonoBehaviour {
+[System.Serializable]
+public class EnergyStorage{
 
 	public int currentCapacity;
-	public int maxCapacity;
+	public bool maxCapacity;
 	public bool okToDistribute;
 	public string storageType;
+
+	public EnergyStorage(){
+		GetCurrentCapacity ();
+		currentCapacity = 0;
+		maxCapacity = false;
+		okToDistribute = false;
+
+	}
 
 
 	public int GetCurrentCapacity(){
 		return currentCapacity;
 	}
 
-	public void SetCurrentCapacity(){
+	public void SetCurrentCapacity(int currentCapacity){
 		this.currentCapacity = currentCapacity;
 	}
 
 
 
-	public int GetMaxCapacity(){
+	public bool GetMaxCapacity(){
 		return maxCapacity;
 	}
 
-	public void SetMaxCapacity(){
+	public void SetMaxCapacity(bool maxCapacity){
 		this.maxCapacity = maxCapacity;
 	}
 
@@ -34,7 +43,7 @@ public class EnergyStorage : MonoBehaviour {
 		return okToDistribute;
 	}
 
-	public void SetOkToDistribute(){
+	public void SetOkToDistribute(bool okToDistribute){
 		this.okToDistribute = okToDistribute;
 	}
 
