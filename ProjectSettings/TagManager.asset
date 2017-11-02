@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Canvas
   - reactor
+  - CoolantAmount
+  - CoolantType
+  - StorageCapacity
+  - StorageAtMax
+  - PumpType
+  - CoolantReady
+  - StorageEmpty
+  - persistantStorage
+  - persistantStorageCoolant
+  - persistantStorageEnergy
   layers:
   - Default
   - TransparentFX
