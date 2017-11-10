@@ -26,13 +26,10 @@ public class EnergyDistributionView : MonoBehaviour {
 		foreach (EnergyConsumer consumer in consumers) {
 			InstantiateSliders (consumer);
 		}
-
-
-
 	}
 
 	void FixedUpdate () {
-		UpdateConnectedConsumersText ();
+		UpdateConnectedConsumersUI ();
 		UpdateMockStorageText ();
 	}
 
@@ -46,7 +43,7 @@ public class EnergyDistributionView : MonoBehaviour {
 		
 	}
 
-	public void UpdateConnectedConsumersText () {
+	public void UpdateConnectedConsumersUI () {
 		string message = "Connected consumers:\n";
 		foreach (EnergyConsumer consumer in consumers) {
 			message += "" 
@@ -55,7 +52,12 @@ public class EnergyDistributionView : MonoBehaviour {
 				+ consumer.CurrentEnergyMultiplier 
 				+ " Power consumption: "
 				+ consumer.EnergyConsumption
+				+ " Heat Factor: "
+				+ consumer.HeatFactor
+				+ " Heat: "
+				+ consumer.Heat
 				+ "\n";
+			consumer.HeatSlider.value = consumer.Heat;
 		}
 		connectedConsumers.text = message;
 	}

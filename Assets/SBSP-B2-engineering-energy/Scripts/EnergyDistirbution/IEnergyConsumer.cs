@@ -21,6 +21,10 @@
 	// e.g. 1.0f - normal, 2.0f - twice as fast
 	float HeatFactor { get; }
 
+	// Heat Level
+	// 0.0f normal temperature
+	float Heat { get; set; }
+
 	// Reference to UI sliders.
 
 	// Power Slider sets the energy

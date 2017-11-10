@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnergyConsumer : IEnergyConsumer {
 
-	// -------------------------------------
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 	// implementation of IEnergyConsumer
 
 	// protected -- visible to this class and subclasses
@@ -26,56 +26,61 @@ public class EnergyConsumer : IEnergyConsumer {
 		set { heatSlider = value; }
 	}
 
+	protected float heat = 0.0f;
+	public float Heat {
+		get {
+			return heat;
+		}
+		set {
+			heat = value;
+		}
+	}
+
 	// no. of units of energy consumed per time unit
 	// during normal operation - when currEnergyMultiplier = 1.0f
 	protected float baseEnergyConsumption;
     public float BaseEnergyConsumption { get { return baseEnergyConsumption; } }
 
-	// < 1.0f - underperforming
-	// = 1.0f - normal operation
-	// > 1.0f - overdrive
-	protected float currentEnergyMultiplier = 1.0f;
-
 	protected float heatFactor;
 	public float HeatFactor { get { return heatFactor; } }
-
 
 	protected const float MAX_ENERGY_OVERDRIVE = 2.0f;
 	public float MaxEnergyOverdrive { get { return MAX_ENERGY_OVERDRIVE; } }
 
-	// -------------------------------------
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-	public EnergyConsumer(string name, float baseEnergyConsumption) {
+	public EnergyConsumer(string name, float baseEnergyConsumption, float heatFactor) {
 		this.name = name;
 		this.baseEnergyConsumption = baseEnergyConsumption;
+		this.heatFactor = heatFactor;
 	}
-
-
-
-	/*public float GetCurrentEnergyConsumption() {
-		return currentEnergyMultiplier * baseEnergyConsumption;
-	}*/
-
+		
 	//----
+	// < 1.0f - underperforming
+	// = 1.0f - normal operation
+	// > 1.0f - overdrive
+	protected float currentEnergyMultiplier = 1.0f;
 	public float CurrentEnergyMultiplier { get { return currentEnergyMultiplier; } }
 
 	public float EnergyConsumption { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
 
-	/*public void SetSliders(Slider powerSlider, Slider coolantSlider, Slider heatSlider) {
-		this.powerSlider = powerSlider;
-		this.coolantSlider = coolantSlider;
-		this.heatSlider = heatSlider;
-	}*/
-
 	public void SetSliders(Slider[] sliders) {
+		// Power Slider
 		powerSlider = sliders [0];
 		powerSlider.minValue = 0;
 		powerSlider.maxValue = MAX_ENERGY_OVERDRIVE;
 		powerSlider.onValueChanged.AddListener (delegate {
 			UpdateEnergyMultiplier ();
 		});
+
+		// Coolant Slider
 		coolantSlider = sliders [1];
+
+		// Heat Slider
 		heatSlider = sliders [2];
+		heatSlider.interactable = false;
+		heatSlider.minValue = 0.0f;
+		heatSlider.maxValue = 10.0f;
 	}
 
 	public void UpdateEnergyMultiplier () {

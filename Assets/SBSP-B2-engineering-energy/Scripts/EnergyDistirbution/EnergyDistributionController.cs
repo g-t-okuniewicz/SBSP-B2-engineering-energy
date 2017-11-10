@@ -12,10 +12,10 @@ public class EnergyDistributionController : MonoBehaviour {
 
 	void Awake () {
 		distModel = new EnergyDistributionModel ();
-		distModel.AddEnergyConsumer (new EnergyConsumer ("Beam", 1.0f));
-		distModel.AddEnergyConsumer (new EnergyConsumer ("Missiles", 3.0f));
-		distModel.AddEnergyConsumer (new EnergyConsumer ("Headlights", 0.3f));
-		distModel.AddEnergyConsumer (new EnergyConsumer("Fridge", 2.5f));
+		distModel.AddEnergyConsumer (new EnergyConsumer ("Beam", 1.0f, 1.0f));
+		distModel.AddEnergyConsumer (new EnergyConsumer ("Missiles", 3.0f, 0.75f));
+		distModel.AddEnergyConsumer (new EnergyConsumer ("Headlights", 0.3f, 0.5f));
+		distModel.AddEnergyConsumer (new EnergyConsumer("Fridge", 2.5f, 0.25f));
 	}
 
 	// Use this for initialization
