@@ -18,9 +18,9 @@ public class EnergyDistributionModelTest
 
         // should contain the expected energy consumers 
         List<EnergyConsumer> expected = new List<EnergyConsumer>(new EnergyConsumer[] {
-            new EnergyConsumer("Beam", 1.0f),
-            new EnergyConsumer("Missiles", 3.0f),
-            new EnergyConsumer("Headlights", 0.3f)
+            new EnergyConsumer("Beam", 1.0f, 1.0f),
+            new EnergyConsumer("Missiles", 3.0f, 0.75f),
+            new EnergyConsumer("Headlights", 0.3f, 1.5f)
         });
 
         CollectionAssert.AreEqual(expected, edm.Consumers);
