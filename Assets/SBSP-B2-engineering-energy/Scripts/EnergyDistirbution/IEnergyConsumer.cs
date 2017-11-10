@@ -25,6 +25,8 @@
 
 	// Power Slider sets the energy
 	UnityEngine.UI.Slider PowerSlider { get; set; }
+	// Coolant Slider doses the coolant
 	UnityEngine.UI.Slider CoolantSlider { get; set; }
+	// Heat Slider displays current temperature
 	UnityEngine.UI.Slider HeatSlider { get; set; }
 }

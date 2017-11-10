@@ -5,22 +5,20 @@ using UnityEngine.UI;
 
 public class EnergyDistributionView : MonoBehaviour {
 
-	public Text connectedConsumers;
+	public Text connectedConsumers, mockStorage;
 	public GameObject sliderGroupPrefab;
 
 	private EnergyDistributionModel distModel;
 	private List<EnergyConsumer> consumers;
 	private List<GameObject> sliderGroups;
 
-	private int slidersOffsetX = 100;
+	private int slidersOffsetX = -400;
 	private int slidersOffsetY = -250;
 
 	void Awake() {
 		EnergyDistributionController distController = GetComponent<EnergyDistributionController> ();
 		distModel = distController.DistributionModel;
 		consumers = distModel.Consumers;
-
-		UpdateConnectedConsumersText ();
 
 		//-------------------
 		sliderGroups = new List<GameObject> ();
@@ -35,6 +33,7 @@ public class EnergyDistributionView : MonoBehaviour {
 
 	void FixedUpdate () {
 		UpdateConnectedConsumersText ();
+		UpdateMockStorageText ();
 	}
 
 	// Use this for initialization
@@ -52,13 +51,20 @@ public class EnergyDistributionView : MonoBehaviour {
 		foreach (EnergyConsumer consumer in consumers) {
 			message += "" 
 				+ consumer.Name.ToUpper() 
-				+ " pwr setting: " 
+				+ " Power level (1.0 - 100%): " 
 				+ consumer.CurrentEnergyMultiplier 
-				+ " pwr cons.: "
+				+ " Power consumption: "
 				+ consumer.EnergyConsumption
 				+ "\n";
 		}
 		connectedConsumers.text = message;
+	}
+
+	// -=-=-=-=-=-=-=-=-=-=-=-=-
+	public void UpdateMockStorageText () {
+		string message = "Energy in storage: " + distModel.GetMockStorage() + "\n";
+		message += "Total energy demand: " + distModel.GetTotalEnergyDemand ();
+		mockStorage.text = message;
 	}
 
 	public void InstantiateSliders (EnergyConsumer consumer) {

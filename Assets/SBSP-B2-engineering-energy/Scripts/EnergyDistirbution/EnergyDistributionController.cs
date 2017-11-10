@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnergyDistributionController : MonoBehaviour {
 
+	private float time = 0.0f;
 
+	private const float TIME_STEP = 1.0f;
 
 	private EnergyDistributionModel distModel;
 
@@ -14,7 +16,6 @@ public class EnergyDistributionController : MonoBehaviour {
 		distModel.AddEnergyConsumer (new EnergyConsumer ("Missiles", 3.0f));
 		distModel.AddEnergyConsumer (new EnergyConsumer ("Headlights", 0.3f));
 		distModel.AddEnergyConsumer (new EnergyConsumer("Fridge", 2.5f));
-
 	}
 
 	// Use this for initialization
@@ -24,7 +25,12 @@ public class EnergyDistributionController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		time += Time.deltaTime;
+
+		if (time >= TIME_STEP) {
+			time = 0.0f;
+			distModel.UpdateModel ();
+		}
 	}
 
 	public EnergyDistributionModel DistributionModel { get { return distModel; } }
