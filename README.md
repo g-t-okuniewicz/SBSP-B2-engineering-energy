@@ -1,7 +1,7 @@
 # codename-spongebob
-SBSP B2 Engineering Energy
+## SBSP B2 Engineering Energy
 
-version 0.0.27
+## version 0.0.27
 
 This repository contains code related to the games development module for the engineering team. 
 The entire project is on the master branch, there are no development branches currently. 
