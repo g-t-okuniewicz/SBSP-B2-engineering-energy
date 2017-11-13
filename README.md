@@ -1,14 +1,22 @@
 # codename-spongebob
 SBSP B2 Engineering Energy
 
-version 2.1
+version 0.0.27
 
-This reposity contains code related to the games development module for the engineering team. 
-The entire project is on the master branch, there are no dvelopment branches currently. 
+This repository contains code related to the games development module for the engineering team. 
+The entire project is on the master branch, there are no development branches currently. 
 To play run the reactor-test-system scene in unity.
 
-updates:
-v2.0 Everything is merged into one scene. Reactor, inventory, storage and consumers.
-v2.1 Added 2 ui Sprites to indicate wether it is ok to distribute energy or not. 
+###### updates:
+- v0.0.24 Temperature implemented.
+- v0.0.25 Added 2 ui Sprites to indicate whether it is ok to distribute energy or not and readme was updated. 
+- v0.0.26 Github readme was updated.
+- v0.0.27 Readme styling was added and temperature test was completed.
 
-Team members are: Juliusz Karski, Tadek Okuniewicz, Ross Nolan, Mehreen Malik, Gelmis Bartulis and Adem Slavotic.
+###### Team members are: 
+- Juliusz Karski
+- Tadek Okuniewicz
+- Ross Nolan
+- Mehreen Malik
+- Gelmis Bartulis
+- Adem Slavotic
