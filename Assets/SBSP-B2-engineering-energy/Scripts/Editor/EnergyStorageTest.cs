@@ -14,10 +14,10 @@ namespace energyStorageTest
         {
             //Arrange
             EnergyStorage e = new EnergyStorage();
-            int expectedResult = 0;
+            float expectedResult = 0.0f;
 
             //Act
-            int result = e.GetCurrentCapacity();
+            float result = e.GetCurrentCapacity();
 
             //Assert
             Assert.AreEqual(result,expectedResult);
@@ -29,11 +29,11 @@ namespace energyStorageTest
             //Arrange
             EnergyStorage e = new EnergyStorage();
             int cap = 10;
-            int expectedResult = 10;
+            float expectedResult = 10.0f;
            
             //Act
             e.SetCurrentCapacity(cap);
-            int result = e.GetCurrentCapacity();
+            float result = e.GetCurrentCapacity();
         
             //Assert
             Assert.AreEqual(result,expectedResult);

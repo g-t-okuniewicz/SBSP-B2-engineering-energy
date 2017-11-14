@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class EnergyStorage {
 
-	public int currentCapacity;
+	public float currentCapacity;
 	public bool maxCapacity;
 	public bool okToDistribute;
 	public string storageType;
@@ -18,11 +18,11 @@ public class EnergyStorage {
     	storageType = "";
     }
 
-	public int GetCurrentCapacity(){
+	public float GetCurrentCapacity(){
 		return currentCapacity;
 	}
 
-	public void SetCurrentCapacity(int currentCapacity){
+	public void SetCurrentCapacity(float currentCapacity){
 		this.currentCapacity = currentCapacity;
 	}
 

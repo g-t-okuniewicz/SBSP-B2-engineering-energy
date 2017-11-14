@@ -60,7 +60,10 @@ public class EnergyConsumer : IEnergyConsumer {
 	// = 1.0f - normal operation
 	// > 1.0f - overdrive
 	protected float currentEnergyMultiplier = 1.0f;
-	public float CurrentEnergyMultiplier { get { return currentEnergyMultiplier; } }
+	public float CurrentEnergyMultiplier { 
+		get { return currentEnergyMultiplier; }
+		set { currentEnergyMultiplier = value; }
+	}
 
 	public float EnergyConsumption { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
 

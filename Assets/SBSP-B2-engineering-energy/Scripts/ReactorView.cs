@@ -20,7 +20,7 @@ public class ReactorView {
 		return energyLevel;
 	}
 
-	public void SetEnergyLevel(int energyLevel){
+	public void SetEnergyLevel(float energyLevel){
 		this.energyLevel.text = "Energy level: " + energyLevel;
 	}
 
@@ -30,7 +30,7 @@ public class ReactorView {
 		return storageLevel;
 	}
 
-	public void SetStorageLevel(int storageLevel){
+	public void SetStorageLevel(float storageLevel){
 		this.storageLevel.text = "Current storage level: " + storageLevel;
 	}
 

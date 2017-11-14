@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ReactorController : MonoBehaviour {
 	public Image red;
 	public Image green;
-	public EnergyStorage energyStorage;
+	private EnergyStorage energyStorage;
 
 	private ReactorModel rm;
 	public ReactorView rv;
@@ -67,6 +67,12 @@ public class ReactorController : MonoBehaviour {
 			red.enabled = true;
 			green.enabled = false;
 		}
+	}
+
+	// Energy Storage getter so other modules
+	// can get reference to it
+	public EnergyStorage GetEnergyStorage() {
+		return energyStorage;
 	}
 
 }
