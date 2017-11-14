@@ -5,50 +5,34 @@ using UnityEngine.UI;
 
 public class ReactorReWork : MonoBehaviour {
 
-	public Object reactor;
-	public 
+	public ArrayList rectorList;
+
+	public GameObject reactor;
+	public GameObject[] reactorArr = new GameObject[3];
+
+	public ReactorModel rm;
+	public ReactorView rv;
+
+
 
 	// Use this for initialization
 	void Start () {
-		
+		rm = new ReactorModel ();
+		reactor = GameObject.Find ("reactor").GetComponent<GameObject>();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		CheckEnergy ();
-		CheckingStorage ();
+
 
 	}
 
-	public void Producing(){ // Create energy where 1x energy unit will be equivalent to 100x sun energy units
-
-		energy = energy + fuel; // Energy will be quivalent to 100 sun energy units 
-		//createEnergy.ShowTransfer();
-	}
-
-	public void CheckEnergy(){
-
-		nrgLEVEL.text = "Energy level: " + energy;
-	}
-
-	public void CheckingStorage(){
-
-		if (energy >= 500) {
-//			energyStorage.GetOkToDistribute (true);
-
-			energyStorage.SetCurrentCapacity (energyStorage.GetCurrentCapacity() + 500);
-			storageLevel.text = "Energy storage: " + energyStorage.GetCurrentCapacity();
-
-			energy -= 500;
-		}
-
-		if (energyStorage.GetCurrentCapacity() >= 500) {
-			energyStorage.SetOkToDistribute(true) ;
+	public void AddReactor(){
+		for (int i = 0; i < reactorArr.Length; i++) {
+			GameObject go = Instantiate(reactor, new Vector3((float)i, 1, 0), Quaternion.identity) as GameObject;
+			go.transform.localScale = Vector3.one;
+			reactorArr[i] = go;
 		}
 	}
-
-
-
-
-
+		
 }
