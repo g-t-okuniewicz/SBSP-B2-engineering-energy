@@ -5,24 +5,12 @@ using UnityEngine.UI;
 
 public class ReactorReWork : MonoBehaviour {
 
-	public int fuel;
-	public int energy;
-	public Text nrgLEVEL;
-	public Text storageLevel;
-	public Canvas canvas;
-
-
-	public EnergyStorage energyStorage;
-	public CreateEnergy createEnergy;
+	public Object reactor;
+	public 
 
 	// Use this for initialization
 	void Start () {
-		fuel = 10;
-		energy = 0;
-		EnergyStorage energyStorage = new EnergyStorage ();
-		CreateEnergy createEnergy = new CreateEnergy ();
-		InvokeRepeating("Producing", 1.0f, 1.0f);
-
+		
 	}
 
 	// Update is called once per frame
