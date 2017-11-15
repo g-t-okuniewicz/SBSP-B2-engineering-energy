@@ -14,7 +14,7 @@ public class EnergyDistributionModel {
 		set { energyStorage = value; }
 	}
 
-	private const float MAX_HEAT = 10.0f;
+	public const float MAX_HEAT = 10.0f;
 
 	//list of energy consumers
 	private List<EnergyConsumer> consumers;
@@ -69,7 +69,8 @@ public class EnergyDistributionModel {
 
 			foreach (EnergyConsumer consumer in consumers) {
 				consumer.CurrentEnergyMultiplier = 0.0f;
-				consumer.PowerSlider.value = 0.0f;
+				if (consumer.PowerSlider != null)
+                    consumer.PowerSlider.value = 0.0f;
 				if (consumer.Heat <= 0.0f)
 					consumer.Heat = 0;
 				else
