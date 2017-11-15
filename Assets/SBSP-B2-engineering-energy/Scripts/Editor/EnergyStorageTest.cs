@@ -47,7 +47,7 @@ namespace energyStorageTest
             bool expectedResult = false;
 
             //Act
-            bool result = e.GetMaxCapacity();
+            bool result = e.GetMaxCapacityReached();
 
             //Assert
             Assert.AreEqual(result,expectedResult);
@@ -62,8 +62,8 @@ namespace energyStorageTest
             bool expectedResult = true;
 
             //Act
-            e.SetMaxCapacity(cap);
-            bool result = e.GetMaxCapacity();
+            e.SetMaxCapacityReached(cap);
+            bool result = e.GetMaxCapacityReached();
 
             //Assert
             Assert.AreEqual(result,expectedResult);
