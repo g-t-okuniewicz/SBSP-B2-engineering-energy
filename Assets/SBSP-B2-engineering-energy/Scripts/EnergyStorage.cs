@@ -14,6 +14,7 @@ public class EnergyStorage {
 	public bool maxCapacityReached;
 	public bool okToDistribute;
 	public string storageType;
+	public int maxNumberOfEnergyStorages;
 
 	public EnergyStorage(){
 		currentCapacity = 0;
@@ -21,6 +22,7 @@ public class EnergyStorage {
 		okToDistribute = false;
     	storageType = "";
 		maxCapacity = 3000;
+		maxNumberOfEnergyStorages = 5;
     }
 
 	public int GetCurrentCapacity(){
@@ -71,4 +73,12 @@ public class EnergyStorage {
 		this.maxCapacity = maxCapacity;
 	}
 
+
+	public int GetMaxNumberOfEnergyStorages(){
+		return maxNumberOfEnergyStorages;
+	}
+
+	public void SetMaxNumberOfEnergyStorages(int maxNumberOfEnergyStorages){
+		this.maxNumberOfEnergyStorages = maxNumberOfEnergyStorages;
+	}
 }
