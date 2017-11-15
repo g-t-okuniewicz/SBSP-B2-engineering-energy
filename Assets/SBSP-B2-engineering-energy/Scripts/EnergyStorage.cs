@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// *** ENERGY STORAGE MODEL ***
+
+
 [System.Serializable]
 public class EnergyStorage {
 
