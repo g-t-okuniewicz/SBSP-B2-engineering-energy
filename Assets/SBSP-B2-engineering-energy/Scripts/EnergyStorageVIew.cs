@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Energy_conversion : MonoBehaviour {
+public class EnergyStorageVIew : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
