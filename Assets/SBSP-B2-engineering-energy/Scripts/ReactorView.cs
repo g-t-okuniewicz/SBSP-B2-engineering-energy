@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ReactorView {
 
-
+	public Image reactor;
 	public Text energyLevel;
 	public Text storageLevel;
 
@@ -35,6 +35,12 @@ public class ReactorView {
 	}
 
 
+	public Image GetReactor(){
+		return reactor;
+	}
 
+	public void SetReactor(){
+		this.reactor = reactor;
+	}
 
 }
