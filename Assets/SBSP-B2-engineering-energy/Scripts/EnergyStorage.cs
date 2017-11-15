@@ -6,16 +6,17 @@ using UnityEngine;
 public class EnergyStorage {
 
 	public int currentCapacity;
-	public bool maxCapacity;
+	public int maxCapacity;
+	public bool maxCapacityReached;
 	public bool okToDistribute;
 	public string storageType;
 
 	public EnergyStorage(){
-		GetCurrentCapacity ();
 		currentCapacity = 0;
-		maxCapacity = false;
+		maxCapacityReached = false;
 		okToDistribute = false;
     	storageType = "";
+		maxCapacity = 3000;
     }
 
 	public int GetCurrentCapacity(){
@@ -28,12 +29,12 @@ public class EnergyStorage {
 
 
 
-	public bool GetMaxCapacity(){
-		return maxCapacity;
+	public bool GetMaxCapacityReached(){
+		return maxCapacityReached;
 	}
 
-	public void SetMaxCapacity(bool maxCapacity){
-		this.maxCapacity = maxCapacity;
+	public void SetMaxCapacityReached(bool maxCapacityReached){
+		this.maxCapacityReached = maxCapacityReached;
 	}
 
 
@@ -56,5 +57,14 @@ public class EnergyStorage {
 		this.storageType = storageType;
 	}
 
+
+
+	public int GetMaxCapacity(){
+		return maxCapacity;
+	}
+
+	public void SetMaxCapacity(int maxCapacity){
+		this.maxCapacity = maxCapacity;
+	}
 
 }

@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class ReactorController : MonoBehaviour {
 
-
 	public Image red;
 	public Image green;
-
 
 	public GameObject reactor;
 	private List<GameObject> reactorArray = new List<GameObject>();
