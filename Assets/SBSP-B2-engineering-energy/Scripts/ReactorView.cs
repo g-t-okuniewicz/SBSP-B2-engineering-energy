@@ -34,13 +34,4 @@ public class ReactorView {
 		this.storageLevel.text = "Current storage level: " + storageLevel;
 	}
 
-
-	public Image GetReactor(){
-		return reactor;
-	}
-
-	public void SetReactor(){
-		this.reactor = reactor;
-	}
-
 }

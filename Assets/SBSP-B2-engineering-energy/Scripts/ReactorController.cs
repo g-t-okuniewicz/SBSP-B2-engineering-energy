@@ -9,16 +9,14 @@ public class ReactorController : MonoBehaviour {
 	public Image red;
 	public Image green;
 
-	public EnergyStorage energyStorage;
 
 	public GameObject reactor;
-//	public Image[] imageList;
+	private List<GameObject> reactorArray = new List<GameObject>();
+	private int sizeOfReactorArray;
 
 	private ReactorModel rm;
 	public ReactorView rv;
-
-	private List<GameObject> reactorArray = new List<GameObject>();
-	private int sizeOfReactorArray;
+	public EnergyStorage energyStorage;
 
 	void Awake(){
 
@@ -27,15 +25,14 @@ public class ReactorController : MonoBehaviour {
 		Text storage = GameObject.Find ("energyStorageLevel").GetComponent<Text>();
 
 		rm = new ReactorModel ();
+		energyStorage = new EnergyStorage ();
 		rv = new ReactorView (energy, storage);
 	}
 
 	void Start () {
 		red.enabled = true;
 		green.enabled = true;
-
-		energyStorage = new EnergyStorage ();
-
+	
 		reactorArray.Add (reactor);
 
 		if (rm.GetEnergy () < rm.GetMaxcapacity ()) {

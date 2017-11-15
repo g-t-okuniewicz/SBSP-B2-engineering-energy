@@ -26,6 +26,8 @@ public class EnergyStorage {
 		this.currentCapacity = currentCapacity;
 	}
 
+
+
 	public bool GetMaxCapacity(){
 		return maxCapacity;
 	}
@@ -33,6 +35,8 @@ public class EnergyStorage {
 	public void SetMaxCapacity(bool maxCapacity){
 		this.maxCapacity = maxCapacity;
 	}
+
+
 
 	public bool GetOkToDistribute(){
 		return okToDistribute;
@@ -42,6 +46,8 @@ public class EnergyStorage {
 		this.okToDistribute = okToDistribute;
 	}
 
+
+
 	public string GetStrorageType(){
 		return storageType;
 	}
@@ -49,4 +55,6 @@ public class EnergyStorage {
 	public void SetStorageType(string storageType){
 		this.storageType = storageType;
 	}
+
+
 }
