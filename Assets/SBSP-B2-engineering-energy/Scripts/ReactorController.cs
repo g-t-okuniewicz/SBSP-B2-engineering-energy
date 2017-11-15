@@ -63,14 +63,14 @@ public class ReactorController : MonoBehaviour {
 
 	public void ShowEnergyLevel(){
 
-		rv.SetEnergyLevel(rm.GetEnergy());
+		rv.SetEnergyLevel(rm.GetEnergy(), rm.GetMaxcapacity());
 	}
 
 	public void CheckingStorage(){
 
 		if (rm.GetEnergy() >= rm.GetMaxcapacity()) {
 
-			energyStorage.SetCurrentCapacity (energyStorage.GetCurrentCapacity() +rm.GetMaxcapacity());
+			energyStorage.SetCurrentCapacity (energyStorage.GetCurrentCapacity() + rm.GetMaxcapacity());
 
 			rv.SetStorageLevel(energyStorage.GetCurrentCapacity()) ;
 
@@ -80,6 +80,7 @@ public class ReactorController : MonoBehaviour {
 		if (energyStorage.GetCurrentCapacity () >= rm.GetMaxcapacity ()) {
 
 			energyStorage.SetOkToDistribute (true);
+			energyStorage.SetMaxCapacityReached (false);
 
 			green.enabled = true;
 
@@ -101,7 +102,7 @@ public class ReactorController : MonoBehaviour {
 	public void AddingReactor(){
 
 		// Currently makes up to 4 reactors. The UI needs work
-		// UI fix will be implemented in Sprint I - Week 1
+		// UI fix will be implemented in Sprint III - Week 1
 		if (reactorArray.Count >= 0 && reactorArray.Count <= 3) {
 			
 			GameObject reactorList = Instantiate (reactor, new Vector3 ( 280, 210, 0), Quaternion.identity) as GameObject;

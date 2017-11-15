@@ -206,7 +206,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 582, y: 210}
-  m_SizeDelta: {x: 200, y: 80}
+  m_SizeDelta: {x: 300, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &31408384
 MonoBehaviour:
@@ -336,7 +336,6 @@ GameObject:
   - component: {fileID: 245707777}
   - component: {fileID: 245707784}
   - component: {fileID: 245707783}
-  - component: {fileID: 245707785}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -451,25 +450,6 @@ MonoBehaviour:
   mockStorage: {fileID: 437611613}
   sliderGroupPrefab: {fileID: 1613977469119322, guid: 3454a634ac74d4c2398c01c2e0b02485,
     type: 2}
---- !u!114 &245707785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 245707776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 191b5e6bfc9a86c4bbeccab23afca8b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  es:
-    currentCapacity: 0
-    maxCapacity: 3000
-    maxCapacityReached: 0
-    okToDistribute: 0
-    storageType: 
-  storageSprite: {fileID: 1348742306}
-  esSprite: {fileID: 1348742309}
 --- !u!1 &392047719
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,7 +779,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 607, y: -39}
-  m_SizeDelta: {x: 250, y: 80}
+  m_SizeDelta: {x: 300, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043116612
 MonoBehaviour:
@@ -995,6 +975,7 @@ GameObject:
   - component: {fileID: 1219457663}
   - component: {fileID: 1219457667}
   - component: {fileID: 1219457668}
+  - component: {fileID: 1219457669}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Canvas
@@ -1114,6 +1095,7 @@ MonoBehaviour:
     maxCapacityReached: 0
     okToDistribute: 1
     storageType: 
+    maxNumberOfEnergyStorages: 5
 --- !u!114 &1219457668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1112,26 @@ MonoBehaviour:
   plasma: {fileID: 1808248465}
   reactor: {fileID: 1755994901}
   numAlive: 0
+--- !u!114 &1219457669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1219457662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191b5e6bfc9a86c4bbeccab23afca8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  es:
+    currentCapacity: 0
+    maxCapacity: 3000
+    maxCapacityReached: 0
+    okToDistribute: 0
+    storageType: 
+    maxNumberOfEnergyStorages: 5
+  storageSprite: {fileID: 1755994899}
+  esSprite: {fileID: 1755994901}
 --- !u!1 &1348742306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,7 +1857,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 245707785}
+      - m_Target: {fileID: 0}
         m_MethodName: AddStorage
         m_Mode: 1
         m_Arguments:

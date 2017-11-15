@@ -14,13 +14,14 @@ public class EnergyStorageController : MonoBehaviour {
 
 	void Awake(){
 		es = new EnergyStorage();
-
 	}
+		
 
 
 	// Use this for initialization
 	void Update () {
 		es.SetMaxNumberOfEnergyStorages(storageArray.Count);
+		if (es.GetCurrentCapacity () >= 500) { MaxCap (); }
 	}
 
 	public void AddStorage(){
@@ -39,12 +40,18 @@ public class EnergyStorageController : MonoBehaviour {
 
 	public void MaxCap(){
 
-		if (es.GetMaxCapacityReached()) {
+		print ("Notified");
+
+		if (es.GetCurrentCapacity() >= 3000) {
+
+			print ("Initiated");
+
+			es.SetMaxCapacityReached (true);
 
 			// Add storage automatically if we run out of space
 			AddStorage ();
 
-			if (es.GetMaxNumberOfEnergyStorages () == 2) {
+			if (storageArray.Count == 1) {
 				es.SetMaxCapacity (es.GetMaxCapacity()*2);
 			}
 		}
