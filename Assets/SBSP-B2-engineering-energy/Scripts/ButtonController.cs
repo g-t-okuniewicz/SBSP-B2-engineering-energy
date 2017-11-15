@@ -10,6 +10,6 @@ using UnityEngine.SceneManagement;
 
         public void ReloadScene()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("reactor-test-system");
         }
     }
