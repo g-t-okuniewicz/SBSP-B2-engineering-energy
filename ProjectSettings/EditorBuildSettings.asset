@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SBSP-B2-engineering-energy/Scenes/reactor-test-system.unity
-    guid: 779b9279fa4058e4c9afa97fc601e288
+    path: Assets/SBSP-B2-engineering-energy/Scenes/coolant.unity
+    guid: 932ed42698b7db147937cd8b717f593d
   - enabled: 1
     path: Assets/SBSP-B2-engineering-energy/Scenes/eng-test-scene.unity
     guid: 3836f36ec23ad4207a3eb21ed676b802
+  - enabled: 1
+    path: Assets/SBSP-B2-engineering-energy/Scenes/reactor-test-system.unity
+    guid: 779b9279fa4058e4c9afa97fc601e288
