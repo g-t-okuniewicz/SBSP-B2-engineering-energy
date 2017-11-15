@@ -24,7 +24,7 @@ public class ReactorView {
 		return energyLevel;
 	}
 
-	public void SetEnergyLevel(int energyLevel, int maxCapacity){
+	public void SetEnergyLevel(float energyLevel, float maxCapacity){
 		this.energyLevel.text = "Energy level: " + energyLevel + " / " + maxCapacity;
 	}
 
@@ -33,8 +33,8 @@ public class ReactorView {
 	public Text GetStorageLevel(){
 		return storageLevel;
 	}
-
-	public void SetStorageLevel(int storageLevel){
+  
+	public void SetStorageLevel(float storageLevel){
 		this.storageLevel.text = "Current storage level: " + storageLevel + " / " + es.GetMaxCapacity() ;
 	}
 
