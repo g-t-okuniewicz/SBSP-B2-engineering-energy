@@ -64,7 +64,7 @@ public class EnergyDistributionView : MonoBehaviour {
 
 	// -=-=-=-=-=-=-=-=-=-=-=-=-
 	public void UpdateMockStorageText () {
-		string message = "Energy in storage: " + distModel.GetMockStorage() + "\n";
+		string message = "Energy in storage: " + distModel.GetEnergyStorageCurrentCapacity() + "\n";
 		message += "Total energy demand: " + distModel.GetTotalEnergyDemand ();
 		mockStorage.text = message;
 	}
