@@ -39,7 +39,8 @@ public class ReactorController : MonoBehaviour {
 
 		energyStorage = new EnergyStorage ();
 
-		sizeOfReactorArray = reactorArray.Count;
+		reactorArray.Add (reactor);
+		sizeOfReactorArray = reactorArray.Capacity;
 
 		InvokeRepeating("Producing", 1.0f, 1.0f);
 	}
@@ -82,8 +83,6 @@ public class ReactorController : MonoBehaviour {
 
 
 	public void AddingReactor(){
-
-
 
 		for (int i = 0; i < sizeOfReactorArray; i++) {
 
