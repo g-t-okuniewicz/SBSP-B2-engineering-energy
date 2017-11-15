@@ -16,7 +16,6 @@ public class ReactorController : MonoBehaviour {
 
 	private ReactorModel rm;
 	public ReactorView rv;
-	public EnergyStorage energyStorage;
 
 	void Awake(){
 

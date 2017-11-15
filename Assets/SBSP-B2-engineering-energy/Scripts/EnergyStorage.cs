@@ -10,7 +10,6 @@ using UnityEngine;
 public class EnergyStorage {
 
 	public float currentCapacity;
-	public int currentCapacity;
 	public float maxCapacity;
 	public bool maxCapacityReached;
 	public bool okToDistribute;
@@ -18,7 +17,7 @@ public class EnergyStorage {
 	public int maxNumberOfEnergyStorages;
 
 	public EnergyStorage(){
-		currentCapacity = 0;
+		currentCapacity = 0.0f;
 		maxCapacityReached = false;
 		okToDistribute = false;
     	storageType = "";
