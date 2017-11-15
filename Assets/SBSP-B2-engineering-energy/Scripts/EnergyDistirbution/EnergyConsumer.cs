@@ -60,7 +60,15 @@ public class EnergyConsumer : IEnergyConsumer {
 	// = 1.0f - normal operation
 	// > 1.0f - overdrive
 	protected float currentEnergyMultiplier = 1.0f;
-	public float CurrentEnergyMultiplier { get { return currentEnergyMultiplier; } }
+	public float CurrentEnergyMultiplier
+    {
+        get { return currentEnergyMultiplier; }
+        set {
+            currentEnergyMultiplier = value;
+            if (powerSlider != null)
+                powerSlider.value = currentEnergyMultiplier;
+        }
+    }
 
 	public float EnergyConsumption { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
 
@@ -92,13 +100,13 @@ public class EnergyConsumer : IEnergyConsumer {
         if(obj is EnergyConsumer)
         {
             EnergyConsumer other = obj as EnergyConsumer;
-            return other.Name.Equals(name) && other.baseEnergyConsumption == baseEnergyConsumption;
+            return other.Name.Equals(name) && other.baseEnergyConsumption == baseEnergyConsumption && other.HeatFactor == heatFactor;
         }
         return false;
     }
 
     public override int GetHashCode()
     {
-        return string.Format("{0}_{1}", name, baseEnergyConsumption).GetHashCode();
+        return string.Format("{0}_{1}_{2}", name, baseEnergyConsumption, heatFactor).GetHashCode();
     }
 }

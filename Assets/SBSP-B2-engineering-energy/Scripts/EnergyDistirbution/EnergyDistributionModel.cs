@@ -8,7 +8,7 @@ public class EnergyDistributionModel {
 	// TEMPORARY - to be replaced with calls to actual storage
 	private float temporaryEnergyStorage = 1000f;
 
-	private const float MAX_HEAT = 10.0f;
+	public const float MAX_HEAT = 10.0f;
 
 	//list of energy consumers
 	private List<EnergyConsumer> consumers;
