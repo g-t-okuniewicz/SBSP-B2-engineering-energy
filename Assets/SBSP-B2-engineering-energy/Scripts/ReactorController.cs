@@ -4,12 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ReactorController : MonoBehaviour {
+
+
 	public Image red;
 	public Image green;
+
 	public EnergyStorage energyStorage;
+
+	public GameObject reactor;
+//	public Image[] imageList;
 
 	private ReactorModel rm;
 	public ReactorView rv;
+
+	private List<GameObject> reactorArray = new List<GameObject>();
+	private int sizeOfReactorArray;
 
 	void Awake(){
 
@@ -29,6 +38,8 @@ public class ReactorController : MonoBehaviour {
 		green.enabled = true;
 
 		energyStorage = new EnergyStorage ();
+
+		sizeOfReactorArray = reactorArray.Count;
 
 		InvokeRepeating("Producing", 1.0f, 1.0f);
 	}
@@ -69,4 +80,21 @@ public class ReactorController : MonoBehaviour {
 		}
 	}
 
+
+	public void AddingReactor(){
+
+
+
+		for (int i = 0; i < sizeOfReactorArray; i++) {
+
+			GameObject reactorList = Instantiate (reactor, new Vector3 (180 + i + 100, 210, 0), Quaternion.identity) as GameObject;
+
+			Image[] reactorImage = reactorList.GetComponentsInChildren<Image> () as Image[];
+
+			reactorList.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
+			reactorArray.Add (reactorList);
+
+			print ("Reactor added!!");
+		}
+	}
 }
