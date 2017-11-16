@@ -8,13 +8,14 @@ public class ReactorController : MonoBehaviour {
 	public Image red;
 	public Image green;
 
+	private EnergyStorage energyStorage;
+
 	public GameObject reactor;
 	private List<GameObject> reactorArray = new List<GameObject>();
 	private int sizeOfReactorArray;
 
 	private ReactorModel rm;
 	public ReactorView rv;
-	public EnergyStorage energyStorage;
 
 	void Awake(){
 
@@ -97,7 +98,11 @@ public class ReactorController : MonoBehaviour {
 		}
 	}
 
-
+	// Energy Storage getter so other modules
+	// can get reference to it
+	public EnergyStorage GetEnergyStorage() {
+		return energyStorage;
+	}
 
 	public void AddingReactor(){
 

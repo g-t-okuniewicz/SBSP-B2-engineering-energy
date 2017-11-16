@@ -9,27 +9,27 @@ using UnityEngine;
 [System.Serializable]
 public class EnergyStorage {
 
-	public int currentCapacity;
-	public int maxCapacity;
+	public float currentCapacity;
+	public float maxCapacity;
 	public bool maxCapacityReached;
 	public bool okToDistribute;
 	public string storageType;
 	public int maxNumberOfEnergyStorages;
 
 	public EnergyStorage(){
-		currentCapacity = 0;
+		currentCapacity = 0.0f;
 		maxCapacityReached = false;
 		okToDistribute = false;
     	storageType = "";
-		maxCapacity = 3000;
+		maxCapacity = 3000.0f;
 		maxNumberOfEnergyStorages = 5;
     }
 
-	public int GetCurrentCapacity(){
+	public float GetCurrentCapacity(){
 		return currentCapacity;
 	}
 
-	public void SetCurrentCapacity(int currentCapacity){
+	public void SetCurrentCapacity(float currentCapacity){
 		this.currentCapacity = currentCapacity;
 	}
 
@@ -65,11 +65,11 @@ public class EnergyStorage {
 
 
 
-	public int GetMaxCapacity(){
+	public float GetMaxCapacity(){
 		return maxCapacity;
 	}
 
-	public void SetMaxCapacity(int maxCapacity){
+	public void SetMaxCapacity(float maxCapacity){
 		this.maxCapacity = maxCapacity;
 	}
 

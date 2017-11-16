@@ -10,7 +10,11 @@ public class EnergyDistributionController : MonoBehaviour {
 
 	private EnergyDistributionModel distModel;
 
+	private EnergyStorage energyStorage = null;
+
 	void Awake () {
+		//energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
+
 		distModel = new EnergyDistributionModel ();
 		distModel.AddEnergyConsumer (new EnergyConsumer ("Beam", 1.0f, 1.0f));
 		distModel.AddEnergyConsumer (new EnergyConsumer ("Missiles", 3.0f, 0.75f));
@@ -25,6 +29,11 @@ public class EnergyDistributionController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (energyStorage == null) {
+			energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
+			distModel.EnergyStorage = energyStorage;
+		}
+			
 		time += Time.deltaTime;
 
 		if (time >= TIME_STEP) {
