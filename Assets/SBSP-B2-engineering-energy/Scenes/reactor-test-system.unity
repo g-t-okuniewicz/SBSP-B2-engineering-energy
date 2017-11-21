@@ -976,6 +976,7 @@ GameObject:
   - component: {fileID: 1219457667}
   - component: {fileID: 1219457668}
   - component: {fileID: 1219457669}
+  - component: {fileID: 1219457670}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Canvas
@@ -1089,13 +1090,8 @@ MonoBehaviour:
   red: {fileID: 1097584287}
   green: {fileID: 1764621348}
   reactor: {fileID: 1755994899}
-  energyStorage:
-    currentCapacity: 300
-    maxCapacity: 3000
-    maxCapacityReached: 0
-    okToDistribute: 1
-    storageType: 
-    maxNumberOfEnergyStorages: 5
+  escV: {fileID: 0}
+  esc: {fileID: 1219457669}
 --- !u!114 &1219457668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,8 +1126,21 @@ MonoBehaviour:
     okToDistribute: 0
     storageType: 
     maxNumberOfEnergyStorages: 5
-  storageSprite: {fileID: 1755994899}
-  esSprite: {fileID: 1755994901}
+  storageSprite: {fileID: 1348742306}
+  esSprite: {fileID: 1348742309}
+--- !u!114 &1219457670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1219457662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b538b31ac0cc04eb9e3fbae226b008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storageLevel: {fileID: 1043116612}
+  esc: {fileID: 1219457669}
 --- !u!1 &1348742306
 GameObject:
   m_ObjectHideFlags: 0

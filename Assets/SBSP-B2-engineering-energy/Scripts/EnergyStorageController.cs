@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class EnergyStorageController : MonoBehaviour {
 
-	public EnergyStorage es;
+	public EnergyStorage es = new EnergyStorage();
 	public GameObject storageSprite;
 	public Image esSprite;
 
 	private List<GameObject> storageArray = new List<GameObject>();
 
 
-	void Awake(){
-		es = new EnergyStorage();
+	public EnergyStorage GetEnergyStorage(){
+		return es;
 	}
-		
 
 
 	// Use this for initialization
