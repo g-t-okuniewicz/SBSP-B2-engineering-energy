@@ -21,10 +21,16 @@
 	// e.g. 1.0f - normal, 2.0f - twice as fast
 	float HeatFactor { get; }
 
+	// Heat Level
+	// 0.0f normal temperature
+	float Heat { get; set; }
+
 	// Reference to UI sliders.
 
 	// Power Slider sets the energy
 	UnityEngine.UI.Slider PowerSlider { get; set; }
+	// Coolant Slider doses the coolant
 	UnityEngine.UI.Slider CoolantSlider { get; set; }
+	// Heat Slider displays current temperature
 	UnityEngine.UI.Slider HeatSlider { get; set; }
 }

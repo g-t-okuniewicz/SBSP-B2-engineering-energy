@@ -8,12 +8,14 @@ public class ReactorModel{
 	public int fuel;
 	public int energy;
 	public int maxCapacity;
+	private List<GameObject> reactorArray;
 
 
 	public ReactorModel(){
-		fuel = 0;
+		fuel = 10;
 		energy = 0;
 		maxCapacity = 500;
+		reactorArray = new List<GameObject>();
 	}
 
 
@@ -46,5 +48,14 @@ public class ReactorModel{
 		this.maxCapacity = maxCapacity;
 	}
 
+
+
+	public List<GameObject> GetReactorArray(){
+		return reactorArray;
+	}
+
+	public void SetReactorArray(List<GameObject> reactorArray){
+		this.reactorArray = reactorArray;
+	}
 
 }

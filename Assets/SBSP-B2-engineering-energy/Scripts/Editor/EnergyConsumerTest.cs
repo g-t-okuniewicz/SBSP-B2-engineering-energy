@@ -11,7 +11,8 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         Assert.AreEqual(name, consumer.Name);
         Assert.AreEqual(baseConsumption, consumer.BaseEnergyConsumption);
@@ -22,7 +23,8 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         Assert.AreEqual(baseConsumption, consumer.EnergyConsumption);
     }
@@ -32,7 +34,8 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
         EnergyStorage other = new EnergyStorage();
 
         Assert.IsFalse(consumer.Equals(other));
@@ -43,11 +46,13 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         string otherName = "Beam";
         float otherBaseConsumption = 1.0f;
-        EnergyConsumer otherConsumer = new EnergyConsumer(otherName, otherBaseConsumption);
+		float otherHeatFactor = 0.5f;
+		EnergyConsumer otherConsumer = new EnergyConsumer(otherName, otherBaseConsumption, otherHeatFactor);
 
         Assert.IsFalse(consumer.Equals(otherConsumer));
     }
@@ -57,7 +62,8 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         Assert.IsTrue(consumer.Equals(consumer));
     }
@@ -67,8 +73,9 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
-        EnergyConsumer otherConsumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
+		EnergyConsumer otherConsumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         Assert.IsTrue(consumer.Equals(otherConsumer));
     }
@@ -78,11 +85,13 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.5f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         string otherName = "Beam";
         float otherBaseConsumption = 1.0f;
-        EnergyConsumer otherConsumer = new EnergyConsumer(otherName, otherBaseConsumption);
+		float otherHeatFactor = 0.5f;
+		EnergyConsumer otherConsumer = new EnergyConsumer(otherName, otherBaseConsumption, otherHeatFactor);
 
         Assert.AreNotEqual(consumer.GetHashCode(), otherConsumer.GetHashCode());
     }
@@ -92,8 +101,9 @@ public class EnergyConsumerTest
     {
         string name = "Missiles";
         float baseConsumption = 3.0f;
-        EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption);
-        EnergyConsumer otherConsumer = new EnergyConsumer(name, baseConsumption);
+		float heatFactor = 1.0f;
+		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
+		EnergyConsumer otherConsumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         Assert.AreEqual(consumer.GetHashCode(), otherConsumer.GetHashCode());
     }

@@ -9,7 +9,7 @@ public class move : MonoBehaviour {
 
 		if(hit.CompareTag("plasma")){
 
-			Debug.Log ("success"); // logs that the collider is successfull
+//			Debug.Log ("success"); // logs that the collider is successfull
 			hit.transform.position = start.position; // transforms from postion x to start position
 		}
 	}
