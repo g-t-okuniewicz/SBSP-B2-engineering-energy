@@ -29,6 +29,7 @@ using UnityEngine;
         {
             this.coolantType = coolantType;
             this.availableCoolant = availableCoolant;
+            this.minimumStorage = minimumStorage;
             this.storageMaxCapacity = storageMaxCapacity;
             this.storageAtMaxCapacity = storageAtMaxCapacity;
             this.storageEmpty = storageEmpty;
