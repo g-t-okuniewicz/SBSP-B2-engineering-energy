@@ -3,160 +3,115 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoolantController : MonoBehaviour
-{   
-        private CoolantView coolantView;
-        private CoolantModel coolant;
-        private CoolantTempStorageModel tempStorage;
-        private CoolantPumpModel coolantPump;
-        //  private CoolantPumpTypes pumps;
-        float coolantPackage;
-        //To be decide by consumers
-        private float neededCoolant = 1.0f;
+public class CoolantController
+{
+    public CoolantModel coolant = new CoolantModel("Water");
+    public CoolantTempStorageModel tempStorage = new CoolantTempStorageModel("", 1000.0f, 0.0f, 1000f, false, false, false, false, 0.0f);
+    public CoolantPumpModel coolantPump = new CoolantPumpModel("Class1", 1.0f, 1.0f);
+    public CoolantPumpTypes pumps;
+    float coolantPackage;
+    bool coolantReady;
+    float counter = 0f;
+    float[] coolantPackageArray;
+    bool coolantPackageFlag = false;
+    float coolantRemaining;
 
-        void Awake()
-        {
-            coolantView = new CoolantView();
-            coolant = new CoolantModel("Water");
-            coolantPump = new CoolantPumpModel("Class1",1.0f,1.0f);
-            tempStorage = new CoolantTempStorageModel("", 1000f, 0.0f, 1000f, false, false);
-        }
-
-        void Start()
-        {
-        //  InvokeRepeating("pumpDeliveryTime",1.0f,1.0f);   
-        }
-
-        void Update()
-        {
-        coolantTypeBeingUsed();
-        pumpInfo();
-        coolantTempStroageInfo();
-        retrieveCoolantFromTempStores(neededCoolant);
-    //   pumpDeliveryTime();
-        coolantView.DisplayCoolantInfo();
-        }
-
-        public void coolantTypeBeingUsed()
-        {
-            string coolantType = coolant.GetCoolantType();
-            tempStorage.SetCoolantType(coolantType);
-            coolantView.SetCoolantType(coolantType);
-        }
-
-        public void coolantTempStroageInfo()
-        { 
-            //--Get Storage stats 
-            float storageMaxCap = tempStorage.GetStorageMaxCapacity();
-            bool storageAtMax = tempStorage.GetStorageAtMaxCapacity();
-            float availCoolant = tempStorage.GetAvailableCoolant();
-        
-            if(availCoolant == storageMaxCap)
-            {
-                storageAtMax = true;
-                tempStorage.SetStorageAtMaxCapacity(storageAtMax);
-            }else{ storageAtMax = false; }
-
-            //--Set Coolant stats
-            coolantView.SetStorageCapacity(storageMaxCap);
-            coolantView.SetstorageAtMax(storageAtMax);
-        }
-
-    public void pumpInfo()
+    //To be decide by consumers
+    public bool coolantFlag = false;
+    public float neededCoolant;
+ 
+    public void pumpInfo()//Basic Pump info
     {
         string coolPump = coolantPump.GetPumpType();
-        coolantView.SetPumpType(coolPump);
     }
 
-    public void retrieveCoolantFromTempStores(float nCoolant)
+    public void coolantTypeBeingUsed()//Basic Coolant info
     {
-        // bool storageAtMax = tempStorage.GetStorageAtMaxCapacity();
-        
-        bool strEmpty = tempStorage.GetStorageEmpty();
-        float storageCoolant = tempStorage.GetAvailableCoolant();
-        float storageMin = tempStorage.GetMinimumStorage();
-        float coolantRemaining = storageCoolant -= nCoolant;
-        bool coolReady = coolantView.GetCoolantReady();
+        string coolantType = coolant.GetCoolantType();
+        tempStorage.SetCoolantType(coolantType);
+    }
 
-        //  float availCoolant = tempStorage.GetAvailableCoolant();
-        float counter = 0.0f;
-        float newCoolantLevel = 0.0f;
-       
-
-        if (coolantRemaining <= 0.0f)
-        {
-            strEmpty = true;
-            //--Set Coolant Back to 0.0 and decalre Empty true
-            tempStorage.SetAvailableCoolant(storageMin);
-            tempStorage.SetStorageEmpty(strEmpty);
-            //--set views
-            coolantView.SetCoolantAmount(storageMin);
-            coolantView.SetStorageEmpty(strEmpty);
-
-        }else{   //--CoolantReaminig
-
-            tempStorage.SetAvailableCoolant(coolantRemaining);
-            counter += Time.deltaTime;
-            //------------------------------------------
-            if (counter >= 30.0f)
-            {
-                coolantPackage += 0.01f;
-                newCoolantLevel = storageCoolant -= 1.0f;
-                tempStorage.SetAvailableCoolant(newCoolantLevel);
-               
-                counter = 0.0f;
-
-             if (coolantPackage >= 0.1f){
-                    coolReady = true;      
-                }
-                    coolantView.SetCoolantReady(coolReady);
-                }
-              
-                coolantView.SetCoolantAmount(storageCoolant);
-             //coolantView.SetCoolantReady(coolReady);
-
-
-            //--Coolant Empty
-            strEmpty = false;
-            coolantView.SetStorageEmpty(strEmpty);
-            }
-        }
-
-
-    public void pumpDeliveryTime()
+    public void coolantTempStroageInfo()//Storage MaxCapacity set too 1000f. Available coolant info. Max capacity bool depending on coolant level.
     {
-        string pumptype = coolantPump.GetPumpType();
-        float pumpSpeed = coolantPump.GetDeliverySpeed();
-        float pumpMultiplier = coolantPump.GetDeliverySpeedMultiplier();
-
-
-
-        bool coolReady = coolantView.GetCoolantReady();
+        float storageMaxCap = tempStorage.GetStorageMaxCapacity();
+        bool storageAtMax = tempStorage.GetStorageAtMaxCapacity();
         float availCoolant = tempStorage.GetAvailableCoolant();
 
-        float newCoolantLevel=0.0f;
-        float coolantPackage = 0.0f;
-
-        float counter = 0.0f;
-
-        if (availCoolant > 0.0f)
-       {
-            if (counter >= 0.0f)
-            { 
-                counter += Time.deltaTime;
-                newCoolantLevel = availCoolant -= 10.01f;
-                tempStorage.SetAvailableCoolant(availCoolant -= 0.01f); 
-                coolantPackage += 0.01f;
-                counter = 0.0f;
-           }
-           if (coolantPackage == 0.01f) { coolReady = true; }
+        if (availCoolant == storageMaxCap)
+        {
+            storageAtMax = true;
+            tempStorage.SetStorageAtMaxCapacity(storageAtMax);
         }
-        //tempStorage.SetAvailableCoolant(availCoolant -= 0.01f);
-        coolantView.SetCoolantAmount(tempStorage.GetAvailableCoolant());
-        coolantView.SetPumpType(pumptype);
-        coolantView.SetCoolantReady(coolReady);
+        else { storageAtMax = false; }
     }
-  }        
+
+    public void exampleOutsideConsumerMethod()
+    {
+        coolantFlag = true;// Set too true if coolant is needed from consumer,
+        //needed coolant from consumer will be taken away from available coolant(set too 1000f, change as you want)
+        //This will allow the consumer coolant to be taken away once from available coolant in Update
+        tempStorage.SetCoolantNeeded(coolantFlag);
+        neededCoolant = 50f;//Example number, representing the consumer coolant needed
+        coolantPackageFlag = true;//This will allow to run once in update *1
+    }
+
+    public void coolantNeededCalc()
+    {//coolantNeededFlag will allow the method to run once in update,this will stop a constant minus of stored coolant
+       // tempStorage.SetCoolantNeeded(coolantFlag);
+        bool coolantNeededFlag = tempStorage.GetCoolantNeeded();
+   
+        if (coolantNeededFlag == true)
+        {
+            float storageCoolant = tempStorage.GetAvailableCoolant();
+            float coolantRemaining = storageCoolant - neededCoolant;
+            tempStorage.SetAvailableCoolant(coolantRemaining);
+            coolantNeededFlag = false;
+            tempStorage.SetCoolantNeeded(coolantNeededFlag);
+        }
+    }
+
+    public void retrieveCoolantFromTempStores()
+    {
+        bool storageAtMax = tempStorage.GetStorageAtMaxCapacity();
+        bool strEmpty = tempStorage.GetStorageEmpty();
+        float storageMin = tempStorage.GetMinimumStorage();
+        float availableCoolant = tempStorage.GetAvailableCoolant();
+        bool coolantReady = tempStorage.GetCoolantReady();
+        float coolantPackage = tempStorage.GetCoolantPackage();
+
+        if (availableCoolant <= 0.0f)
+        {
+            strEmpty = true;
+            tempStorage.SetAvailableCoolant(storageMin);
+            tempStorage.SetStorageEmpty(strEmpty);
+        }else{
+
+            if (!(neededCoolant <= 0) && coolantPackageFlag == true)
+            {   //coolantPackageFlag will allow this part of the method to run once at a time in update, 
+              
+                neededCoolant -= 1.0f;
+                float newPackage = coolantPackage += 1.0f;
+                tempStorage.SetCoolantPackage(newPackage);
+              
+
+                if (coolantPackage >= 50.0f)
+                {
+                    float packageReset = 0.0f;
+                    coolantReady = true;
+                    tempStorage.SetCoolantReady(coolantReady);
+                    //Package Reset to set package back to 0 if needed.
+                    //tempStorage.SetCoolantPackage(packageReset);
+                    coolantPackageFlag = false;
+                    //Call GetCoolantPackage to retrieve 50f or coolant for consumers- Change to suit yourself
+                }//Change method as you want if you dont want to use packages, just a slow stream is optional.
+            }//Also can add Delta time, for a cooldown
+            strEmpty = false;
+        }
+    }
+}
+
+    
+          
 
 
 

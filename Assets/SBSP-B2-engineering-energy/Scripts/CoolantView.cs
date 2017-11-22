@@ -3,94 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoolantView 
+public class CoolantView : MonoBehaviour
 {
-    public string coolantType;
-    public float coolantAvailabe;
+    public CoolantController coolController;
 
-    public float storageCapacity;
-    public bool storageEmpty;
-    public bool storageAtMax;
-
-    private string pumpType;
-    private bool coolantReady;
-
-    //GET OTHER........
-
-    //coolant stores
-
-    public CoolantView()
+    void Awake()
     {
-        coolantType = "";
-        coolantAvailabe = 0.0f;
-        storageCapacity = 0.0f;
-        storageEmpty = false;
-        storageAtMax = false;
-        pumpType = "";
-        coolantReady = false;
-    }
-
-    public CoolantView(string coolantTyp, float coolantAmt, float storageCapacity, bool storageAtMax,
-       string pumpType, bool coolantReady, bool storageEmpty)
-    {   
-        this.coolantType = coolantTyp;    
-        this.coolantAvailabe = coolantAmt;
-        this.storageCapacity = storageCapacity;
-        this.storageEmpty = storageEmpty;
-        this.storageAtMax = storageAtMax;
-        this.pumpType = pumpType;
-        this.coolantReady = coolantReady;
-
+        coolController = new CoolantController();
 
     }
 
-    public string GetCoolantType() { return coolantType; }
-    public void SetCoolantType(string coolantTyp) { this.coolantType = coolantTyp; }
-   
-    public float GetCoolantAmount() { return coolantAvailabe; }
-    public void SetCoolantAmount(float coolantAmt) { this.coolantAvailabe = coolantAmt; }
+    void FixedUpdate() {}
+    void Start() {
+        //This is just an example of how you could call use for consumers. 
+        coolController.exampleOutsideConsumerMethod();
+    }
 
-    public float GetStorageCapacity() { return storageCapacity; }
-    public void SetStorageCapacity(float storageCapacity) { this.storageCapacity = storageCapacity; }
-
-    public bool GetStorageAtMax() { return storageAtMax; }
-    public void SetstorageAtMax(bool storageAtMax) { this.storageAtMax = storageAtMax; }
-
-    public string GetPumpType() { return pumpType; }
-    public void SetPumpType(string pumpType) { this.pumpType = pumpType; }
-
-    public bool GetCoolantReady() { return coolantReady; }
-    public void SetCoolantReady(bool coolantReady) { this.coolantReady = coolantReady; }
-
-    public bool GetStorageEmpty() { return storageEmpty; }
-    public void SetStorageEmpty(bool storageEmpty) { this.storageEmpty = storageEmpty; }
-
-    void FixedUpdate(){}
-    void Awake(){}
-    void Start(){ }
-    void Update(){}
-
-    public void DisplayCoolantInfo()
+    void Update()
     {
-        // float CoolantAmount = float.Parse(coolantAmtText.text);
-        Text coolantTypText = GameObject.FindWithTag("CoolantType").GetComponent<Text>();
-        Text coolantAmtText = GameObject.FindWithTag("CoolantAmount").GetComponent<Text>();
-
-        Text storageCapacityText = GameObject.FindWithTag("StorageCapacity").GetComponent<Text>();
-        Text storageAtMaxText = GameObject.FindWithTag("StorageAtMax").GetComponent<Text>();
-        Text storageEmpty = GameObject.FindWithTag("StorageEmpty").GetComponent<Text>();
-
-        Text pumpTypeText = GameObject.FindWithTag("PumpType").GetComponent<Text>();
-        Text coolantReadyText = GameObject.FindWithTag("CoolantReady").GetComponent<Text>();
-
-        coolantAmtText.text = "CoolantAvailable: " + GetCoolantAmount();
-        coolantTypText.text = "CoolantType: " + GetCoolantType();
-        storageCapacityText.text = "Storage Capacity: "+ GetStorageCapacity();
-        storageAtMaxText.text = "Storage At Max: " + GetStorageAtMax();
-        storageEmpty.text = "Storage Empty: " + GetStorageEmpty();
-        pumpTypeText.text = "Pump Type: " + GetPumpType();
-        coolantReadyText.text = "Coolant Ready: " + GetCoolantReady();
-
+        coolController.pumpInfo();
+        coolController.coolantTypeBeingUsed();
+        coolController.coolantNeededCalc();
+        coolController.retrieveCoolantFromTempStores();
+        coolController.coolantTempStroageInfo();
     }
-
+  
+    void OnGUI()
+    {
+        // All text outputs are actual outputs, if needed, use the code to collect the outputs.
+        GUI.Label(new Rect(100, 15, 200, 40), "CoolantAvailable: " + coolController.tempStorage.GetAvailableCoolant());
+        GUI.Label(new Rect(100, 35, 200, 40), "CoolantType: " + coolController.coolant.GetCoolantType());
+        GUI.Label(new Rect(100, 55, 200, 40), "Storage Capacity: " + coolController.tempStorage.GetStorageMaxCapacity());
+        GUI.Label(new Rect(100, 75, 200, 40), "Storage At Max: " + coolController.tempStorage.GetStorageAtMaxCapacity());
+        GUI.Label(new Rect(100, 95, 200, 40), "Storage Empty: " + coolController.tempStorage.GetStorageEmpty());
+        GUI.Label(new Rect(100, 115, 200, 40), "Pump Type: " + coolController.coolantPump.GetPumpType());
+        GUI.Label(new Rect(100, 135, 200, 40), "Coolant Ready: " + coolController.tempStorage.GetCoolantReady());
+        GUI.Label(new Rect(100, 155, 200, 40), "Coolant Needed Flag: " + coolController.tempStorage.GetCoolantNeeded());
+        GUI.Label(new Rect(100, 175, 200, 40), "Coolant Package: " + coolController.tempStorage.GetCoolantPackage());
+    }
 }
