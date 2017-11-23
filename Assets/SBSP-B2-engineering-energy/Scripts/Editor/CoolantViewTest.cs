@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 public class CoolantViewTest
 {
+	/*-=-=-=-=-=-=-=-=-=-=-=-=-
     [Test]
     public void NoArgConstructorInitTest()
     {
@@ -100,4 +101,6 @@ public class CoolantViewTest
         view.SetStorageEmpty(empty2);
         Assert.AreEqual(empty2, view.GetStorageEmpty());
     }
+
+	-=-=-=-=-=-=-=-=-=-=-=-=-*/
 }

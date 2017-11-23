@@ -4,10 +4,7 @@ using UnityEngine.UI;
 //using UnityEngine;
 
 public class EnergyDistributionModel {
-
-	/*// TEMPORARY - to be replaced with calls to actual storage
-	private float temporaryEnergyStorage = 1000f;*/
-
+	
 	private EnergyStorage energyStorage = null;
 	public EnergyStorage EnergyStorage {
 		get { return energyStorage; }
@@ -37,10 +34,6 @@ public class EnergyDistributionModel {
 		else
 			return 0.0f;
 	}
-
-	/*public void DrawEnergy(float value) {
-		energyStorage.currentCapacity -= value;
-	}*/
 
 	public float GetTotalEnergyDemand() {
 		float totalDemand = 0;

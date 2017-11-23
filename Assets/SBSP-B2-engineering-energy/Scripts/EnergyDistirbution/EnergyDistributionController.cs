@@ -12,6 +12,9 @@ public class EnergyDistributionController : MonoBehaviour {
 
 	private EnergyStorage energyStorage = null;
 
+	private CoolantView coolantView = null;
+	private CoolantTempStorageModel ctsm = null;
+
 	void Awake () {
 		//energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
 
@@ -24,11 +27,17 @@ public class EnergyDistributionController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		coolantView = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<CoolantView> ();
+		ctsm = coolantView.coolController.tempStorage;
+		Debug.Log ("Coolant View: " + coolantView.ToString ());
+		Debug.Log ("Storage Model: " + ctsm.ToString ());
+		ctsm.GetCoolantPackage ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		// this is in Update to make sure to get references 
 		if (energyStorage == null) {
 			energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
 			distModel.EnergyStorage = energyStorage;

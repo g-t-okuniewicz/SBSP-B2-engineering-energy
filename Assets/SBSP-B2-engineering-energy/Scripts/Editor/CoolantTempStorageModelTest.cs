@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 public class CoolantTempStorageModelTest
 {
+	/*-=-=-=-=-=-=-=-=-=-=-=-=-
     [Test]
     public void NoArgConstructorInitializationTest()
     {
@@ -124,4 +125,5 @@ public class CoolantTempStorageModelTest
         ctsm.SetStorageEmpty(empty2);
         Assert.AreEqual(empty2, ctsm.GetStorageEmpty());
     }
+    -=-=-=-=-=-=-=-=-=-=-=-=-*/
 }
