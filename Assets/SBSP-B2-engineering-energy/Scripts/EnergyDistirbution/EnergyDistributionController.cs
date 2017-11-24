@@ -12,8 +12,7 @@ public class EnergyDistributionController : MonoBehaviour {
 
 	private EnergyStorage energyStorage = null;
 
-	private CoolantView coolantView = null;
-	private CoolantTempStorageModel ctsm = null;
+	private CoolantController coolantController = null;
 
 	void Awake () {
 		//energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
@@ -23,15 +22,22 @@ public class EnergyDistributionController : MonoBehaviour {
 		distModel.AddEnergyConsumer (new EnergyConsumer ("Missiles", 3.0f, 0.75f));
 		distModel.AddEnergyConsumer (new EnergyConsumer ("Headlights", 0.3f, 0.5f));
 		distModel.AddEnergyConsumer (new EnergyConsumer("Fridge", 2.5f, 0.25f));
+		distModel.AddEnergyConsumer (new EnergyConsumer("New Consumer", 4.7f, 0.11f));
+
 	}
 
 	// Use this for initialization
 	void Start () {
-		coolantView = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<CoolantView> ();
-		ctsm = coolantView.coolController.tempStorage;
-		Debug.Log ("Coolant View: " + coolantView.ToString ());
-		Debug.Log ("Storage Model: " + ctsm.ToString ());
-		ctsm.GetCoolantPackage ();
+		
+		/*
+		//coolantController = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<CoolantView> ().coolController;
+		coolantController.coolantFlag = true;// Set too true if coolant is needed from consumer,
+		//needed coolant from consumer will be taken away from available coolant(set too 1000f, change as you want)
+		//This will allow the consumer coolant to be taken away once from available coolant in Update
+		coolantController.tempStorage.SetCoolantNeeded(true);
+		coolantController.neededCoolant = 50f;//Example number, representing the consumer coolant needed
+		coolantController.coolantPackageFlag = true;//This will allow to run once in update *1
+		*/
 	}
 	
 	// Update is called once per frame
@@ -41,6 +47,12 @@ public class EnergyDistributionController : MonoBehaviour {
 		if (energyStorage == null) {
 			energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
 			distModel.EnergyStorage = energyStorage;
+		}
+
+		// this is in Update to make sure to get references 
+		if (coolantController == null) {
+			coolantController = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<CoolantView> ().coolController;
+			distModel.CoolantController = coolantController;
 		}
 			
 		time += Time.deltaTime;

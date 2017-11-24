@@ -10,6 +10,9 @@
 	// to calculate total energy consumption
 	float BaseEnergyConsumption { get; }
 
+	// Units of coolant per 1s
+	float CurrentCoolantDemand { get; set; }
+
 	// Max multiplier.
 	// Should be constant.
 	// Maximum power overdrive that can be set
@@ -17,13 +20,20 @@
 	float MaxEnergyOverdrive { get; }
 
 	// This determines how fast
-	// the consumer builds up heat.
-	// e.g. 1.0f - normal, 2.0f - twice as fast
+	// the consumer builds up heat
+	// e.g. 1.0f - normal, 2.0f - twice as fast,
+	// and determines cooling efficiency.
 	float HeatFactor { get; }
 
 	// Heat Level
 	// 0.0f normal temperature
 	float Heat { get; set; }
+
+	// Overheating flag
+	// When overheated the consumer
+	// cannot operate before
+	// completely cooling down.
+	bool Overheated { get; set; }
 
 	// Reference to UI sliders.
 

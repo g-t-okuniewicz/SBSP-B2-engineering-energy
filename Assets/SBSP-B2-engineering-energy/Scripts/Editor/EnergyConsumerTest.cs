@@ -26,7 +26,7 @@ public class EnergyConsumerTest
 		float heatFactor = 1.0f;
 		EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
-        Assert.AreEqual(baseConsumption, consumer.EnergyConsumption);
+        Assert.AreEqual(baseConsumption, consumer.CurrentEnergyDemand);
     }
 
     [Test]

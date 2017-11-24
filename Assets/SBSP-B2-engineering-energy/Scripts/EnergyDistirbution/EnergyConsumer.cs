@@ -28,12 +28,14 @@ public class EnergyConsumer : IEnergyConsumer {
 
 	protected float heat = 0.0f;
 	public float Heat {
-		get {
-			return heat;
-		}
-		set {
-			heat = value;
-		}
+		get { return heat; }
+		set { heat = value; }
+	}
+
+	protected bool overheated = false;
+	public bool Overheated {
+		get { return overheated; }
+		set { overheated = value; }
 	}
 
 	// no. of units of energy consumed per time unit
@@ -41,11 +43,20 @@ public class EnergyConsumer : IEnergyConsumer {
 	protected float baseEnergyConsumption;
     public float BaseEnergyConsumption { get { return baseEnergyConsumption; } }
 
+	protected float currentCoolantDemand = 0.0f;
+	public float CurrentCoolantDemand {
+		get { return currentCoolantDemand; }
+		set { currentCoolantDemand = value; }
+	}
+
 	protected float heatFactor;
 	public float HeatFactor { get { return heatFactor; } }
 
 	protected const float MAX_ENERGY_OVERDRIVE = 2.0f;
 	public float MaxEnergyOverdrive { get { return MAX_ENERGY_OVERDRIVE; } }
+
+	protected const float MAX_COOLANT = 3.0f;
+	public float MaxCoolant { get { return MAX_COOLANT; } }
 
 	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -65,7 +76,9 @@ public class EnergyConsumer : IEnergyConsumer {
 		set { currentEnergyMultiplier = value; }
 	}
 
-	public float EnergyConsumption { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
+	//xxxxxxx
+	// TODO add this to the interface
+	public float CurrentEnergyDemand { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
 
 	public void SetSliders(Slider[] sliders) {
 		// Power Slider
@@ -78,6 +91,11 @@ public class EnergyConsumer : IEnergyConsumer {
 
 		// Coolant Slider
 		coolantSlider = sliders [1];
+		coolantSlider.minValue = 0.0f;
+		coolantSlider.maxValue = MAX_COOLANT;
+		coolantSlider.onValueChanged.AddListener (delegate {
+			currentCoolantDemand = coolantSlider.value;
+		});
 
 		// Heat Slider
 		heatSlider = sliders [2];

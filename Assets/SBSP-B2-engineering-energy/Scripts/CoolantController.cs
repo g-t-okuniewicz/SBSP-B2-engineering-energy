@@ -13,7 +13,7 @@ public class CoolantController
     bool coolantReady;
     float counter = 0f;
     float[] coolantPackageArray;
-    bool coolantPackageFlag = false;
+    public bool coolantPackageFlag = false;
     float coolantRemaining;
 
     //To be decide by consumers

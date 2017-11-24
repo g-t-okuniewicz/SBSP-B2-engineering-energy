@@ -46,7 +46,7 @@ public class EnergyDistributionModelTest
         EnergyDistributionModel edm = new EnergyDistributionModel();
         float expected = 0.0f;
 
-        Assert.AreEqual(expected, edm.GetTotalEnergyDemand());
+        Assert.AreEqual(expected, edm.TotalEnergyDemand);
     }
 
     [Test]
@@ -62,7 +62,7 @@ public class EnergyDistributionModelTest
         edm.AddEnergyConsumer(consumer2);
         edm.AddEnergyConsumer(consumer3);
 
-        Assert.AreEqual(sum, edm.GetTotalEnergyDemand());
+        Assert.AreEqual(sum, edm.TotalEnergyDemand);
     }
 
     [Test]

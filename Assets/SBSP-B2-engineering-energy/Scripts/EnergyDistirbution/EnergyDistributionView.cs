@@ -30,7 +30,7 @@ public class EnergyDistributionView : MonoBehaviour {
 
 	void FixedUpdate () {
 		UpdateConnectedConsumersUI ();
-		UpdateMockStorageText ();
+		UpdateStorageText ();
 	}
 
 	// Use this for initialization
@@ -51,11 +51,13 @@ public class EnergyDistributionView : MonoBehaviour {
 				+ " Power level (1.0 - 100%): " 
 				+ consumer.CurrentEnergyMultiplier 
 				+ " Power consumption: "
-				+ consumer.EnergyConsumption
+				+ consumer.CurrentEnergyDemand
 				+ " Heat Factor: "
 				+ consumer.HeatFactor
 				+ " Heat: "
 				+ consumer.Heat
+				+ " Coolant Demand: "
+				+ consumer.CurrentCoolantDemand
 				+ "\n";
 			consumer.HeatSlider.value = consumer.Heat;
 		}
@@ -63,9 +65,10 @@ public class EnergyDistributionView : MonoBehaviour {
 	}
 
 	// -=-=-=-=-=-=-=-=-=-=-=-=-
-	public void UpdateMockStorageText () {
+	public void UpdateStorageText () {
 		string message = "Energy in storage: " + distModel.GetEnergyStorageCurrentCapacity() + "\n";
-		message += "Total energy demand: " + distModel.GetTotalEnergyDemand ();
+		message += "Total energy demand: " + distModel.TotalEnergyDemand + "\n";
+		message += "Total coolant demand: " + distModel.TotalCoolantDemand;
 		mockStorage.text = message;
 	}
 
