@@ -23,7 +23,7 @@ public class EnergyDistributionModel {
 	private float totalCoolantDemand;
 	public float TotalCoolantDemand { get { return totalCoolantDemand; } }
 
-	public const float MAX_HEAT = 10.0f;
+	//public const float MAX_HEAT = 10.0f;
 
 	//list of energy consumers
 	private List<EnergyConsumer> consumers;
@@ -62,17 +62,17 @@ public class EnergyDistributionModel {
 			foreach (EnergyConsumer consumer in consumers) {
 				newTotalEnergyDemand += consumer.CurrentEnergyDemand;
 				newTotalCoolantDemand += consumer.CurrentCoolantDemand;
-				if (consumer.Heat >= MAX_HEAT && !consumer.Overheated) {
-					consumer.Heat = MAX_HEAT;
+				if (consumer.Temperature >= consumer.MaxTemperature && !consumer.Overheated) {
+					consumer.Temperature = consumer.MaxTemperature;
 					consumer.Overheated = true;
 					consumer.PowerSlider.value = 0.0f;
 					consumer.PowerSlider.interactable = false;
-				} else if (consumer.CurrentEnergyMultiplier > 1.0f && consumer.Heat < MAX_HEAT) {
-					consumer.Heat += consumer.CurrentEnergyMultiplier * consumer.HeatFactor - consumer.CurrentCoolantDemand;
-				} else if (consumer.CurrentEnergyMultiplier < 1.0f && consumer.Heat > 0) {
-					consumer.Heat -= (1.0f - consumer.CurrentEnergyMultiplier) * consumer.HeatFactor + consumer.CurrentCoolantDemand;
-				} else if (consumer.Heat <= 0.0f) {
-					consumer.Heat = 0.0f;
+				} else if (consumer.BaseDemandMultiplier > 1.0f && consumer.Temperature >= 0.0f && consumer.Temperature < consumer.MaxTemperature) {
+					consumer.Temperature += consumer.BaseDemandMultiplier * consumer.HeatFactor - consumer.CurrentCoolantDemand;
+				} else if (consumer.BaseDemandMultiplier < 1.0f && consumer.Temperature > 0) {
+					consumer.Temperature -= (1.0f - consumer.BaseDemandMultiplier) * consumer.HeatFactor + consumer.CurrentCoolantDemand;
+				} else if (consumer.Temperature <= 0.0f) {
+					consumer.Temperature = 0.0f;
 					consumer.Overheated = false;
 					consumer.PowerSlider.interactable = true;
 				}
@@ -82,17 +82,17 @@ public class EnergyDistributionModel {
 			foreach (EnergyConsumer consumer in consumers) {
 				newTotalEnergyDemand += consumer.CurrentEnergyDemand;
 				newTotalCoolantDemand += consumer.CurrentCoolantDemand;
-				consumer.CurrentEnergyMultiplier = 0.0f;
+				consumer.BaseDemandMultiplier = 0.0f;
 				if (consumer.PowerSlider != null) {
 					consumer.PowerSlider.value = 0.0f;
 					consumer.PowerSlider.interactable = false;
 				}
-				if (consumer.Heat <= 0.0f) {
-					consumer.Heat = 0;
+				if (consumer.Temperature <= 0.0f) {
+					consumer.Temperature = 0;
 					consumer.Overheated = false;
 				}
 				else
-					consumer.Heat -= consumer.HeatFactor + consumer.CurrentCoolantDemand;
+					consumer.Temperature -= consumer.HeatFactor + consumer.CurrentCoolantDemand;
 			}
 		}
 

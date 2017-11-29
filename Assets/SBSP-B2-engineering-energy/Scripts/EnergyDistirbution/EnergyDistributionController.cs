@@ -18,11 +18,11 @@ public class EnergyDistributionController : MonoBehaviour {
 		//energyStorage = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<ReactorController> ().GetEnergyStorage();
 
 		distModel = new EnergyDistributionModel ();
-		distModel.AddEnergyConsumer (new EnergyConsumer ("Beam", 1.0f, 1.0f));
-		distModel.AddEnergyConsumer (new EnergyConsumer ("Missiles", 3.0f, 0.75f));
-		distModel.AddEnergyConsumer (new EnergyConsumer ("Headlights", 0.3f, 0.5f));
-		distModel.AddEnergyConsumer (new EnergyConsumer("Fridge", 2.5f, 0.25f));
-		distModel.AddEnergyConsumer (new EnergyConsumer("New Consumer", 4.7f, 0.11f));
+		distModel.AddEnergyConsumer (new MyEnergyConsumer ("Beam", 1.0f, 1.0f));
+		distModel.AddEnergyConsumer (new MyEnergyConsumer ("Missiles", 3.0f, 0.75f));
+		distModel.AddEnergyConsumer (new MyEnergyConsumer ("Headlights", 0.3f, 0.5f));
+		distModel.AddEnergyConsumer (new MyEnergyConsumer("Fridge", 2.5f, 0.25f));
+		distModel.AddEnergyConsumer (new MyEnergyConsumer("New Consumer", 4.7f, 0.11f));
 
 	}
 

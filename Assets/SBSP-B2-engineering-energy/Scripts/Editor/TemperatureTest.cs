@@ -11,7 +11,7 @@ public class TemperatureTest
         EnergyConsumer consumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         Assert.AreEqual(name, consumer.Name);
-        Assert.AreEqual(baseConsumption, consumer.BaseEnergyConsumption);
+        Assert.AreEqual(baseConsumption, consumer.BaseEnergyDemand);
     }
 
     [Test]
@@ -26,7 +26,7 @@ public class TemperatureTest
         EnergyConsumer maxHeatConsumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         // Assert
-        Assert.AreEqual(heatFactor, maxHeatConsumer.MaxEnergyOverdrive);
+        Assert.AreEqual(heatFactor, maxHeatConsumer.MaxEnergyDemand);
     }
 
     [Test]
@@ -41,6 +41,6 @@ public class TemperatureTest
         EnergyConsumer maxOverHeatConsumer = new EnergyConsumer(name, baseConsumption, heatFactor);
 
         // Assert
-        Assert.AreNotEqual(heatFactor, maxOverHeatConsumer.MaxEnergyOverdrive);
+        Assert.AreNotEqual(heatFactor, maxOverHeatConsumer.MaxEnergyDemand);
     }
 }

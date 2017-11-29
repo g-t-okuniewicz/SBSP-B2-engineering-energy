@@ -49,17 +49,17 @@ public class EnergyDistributionView : MonoBehaviour {
 			message += "" 
 				+ consumer.Name.ToUpper() 
 				+ " Power level (1.0 - 100%): " 
-				+ consumer.CurrentEnergyMultiplier 
+				+ consumer.BaseDemandMultiplier 
 				+ " Power consumption: "
 				+ consumer.CurrentEnergyDemand
 				+ " Heat Factor: "
 				+ consumer.HeatFactor
 				+ " Heat: "
-				+ consumer.Heat
+				+ consumer.Temperature
 				+ " Coolant Demand: "
 				+ consumer.CurrentCoolantDemand
 				+ "\n";
-			consumer.HeatSlider.value = consumer.Heat;
+			consumer.HeatSlider.value = consumer.Temperature;
 		}
 		connectedConsumers.text = message;
 	}
@@ -79,7 +79,26 @@ public class EnergyDistributionView : MonoBehaviour {
 		label.text = consumer.Name;
 
 		Slider[] sliders = sliderGroup.GetComponentsInChildren<Slider> () as Slider[];
-		consumer.SetSliders (sliders);
+
+		consumer.PowerSlider = sliders[0];
+		consumer.PowerSlider.minValue = 0;
+		consumer.PowerSlider.maxValue = consumer.MaxEnergyDemand;
+		consumer.PowerSlider.onValueChanged.AddListener (delegate {
+			consumer.BaseDemandMultiplier = consumer.PowerSlider.value;
+		});
+
+		consumer.CoolantSlider = sliders [1];
+		consumer.CoolantSlider.minValue = 0;
+		consumer.CoolantSlider.maxValue = consumer.MaxCoolantDemand;
+		consumer.CoolantSlider.onValueChanged.AddListener (delegate {
+			consumer.CurrentCoolantDemand = consumer.CoolantSlider.value;	
+		});
+
+		consumer.HeatSlider = sliders [2];
+		consumer.HeatSlider.interactable = false;
+		consumer.HeatSlider.minValue = 0.0f;
+		consumer.HeatSlider.maxValue = consumer.MaxTemperature;
+
 		slidersOffsetX += 100;
 		sliderGroup.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
 		sliderGroups.Add(sliderGroup);

@@ -7,119 +7,191 @@ public class EnergyConsumer : IEnergyConsumer {
 
 	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 	// implementation of IEnergyConsumer
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-	// protected -- visible to this class and subclasses
+	/*
+	 * Display name.
+	 */
 	protected string name;
 	public string Name { get { return name; } }
 
-	protected Slider powerSlider, coolantSlider, heatSlider;
-	public Slider PowerSlider { 
-		get { return powerSlider; }
-		set { powerSlider = value; }
-	}
-	public Slider CoolantSlider { 
-		get { return coolantSlider; }
-		set { coolantSlider = value; }
-	}
-    public Slider HeatSlider { 
-		get { return heatSlider; }
-		set { heatSlider = value; }
+	// ENERGY
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	/* 
+	 * Units of energy consumed per time unit
+	 * during normal operation - when currentEnergyMultiplier = 1.0f.
+	 * This will be multiplied by currentEnergyMultiplier
+	 * to calculate total energy consumption.
+	 */
+	protected float baseEnergyDemand;
+	public float BaseEnergyDemand { get { return baseEnergyDemand; } }
+
+	/*
+	 * Adjusted with a slider during gameplay.
+	 * Multiplied by BaseEnergyDemand
+	 * to calcuate CurrentEnergyDemand.
+	 * < 1.0f - underperforming
+	 * = 1.0f - normal operation
+	 * > 1.0f - overdrive
+	 */
+	protected float baseDemandMultiplier;
+	public float BaseDemandMultiplier { 
+		get { return baseDemandMultiplier; }
+		set { baseDemandMultiplier = value; }
 	}
 
-	protected float heat = 0.0f;
-	public float Heat {
-		get { return heat; }
-		set { heat = value; }
+	/*
+	 * Maximum value of BaseDemandMultiplier
+	 * that can be set with a slider.
+	 */
+	protected float maxEnergyDemand;
+	public float MaxEnergyDemand { get { return maxEnergyDemand; } }
+
+	/*
+	 * Current energy demand
+	 * in units per time-step (1s)
+	 */
+	public float CurrentEnergyDemand { get { return baseDemandMultiplier * baseEnergyDemand; } }
+
+	protected float temperature;
+	public float Temperature {
+		get { return temperature; }
+		set { temperature = value; }
 	}
 
+	// TEMPERATURE
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	/*
+	 * Maximum temperature
+	 * at which the consumer stops
+	 * working and must wait
+	 * until cooled down
+	 * back to 0.0f
+	 */
+	protected float maxTemperature;
+	public float MaxTemperature { get { return maxTemperature; } }
+
+	/*
+	 * This determines how fast
+	 * the consumer builds up heat,
+	 * (e.g. 1.0f - normal, 2.0f - twice as fast),
+	 * and determines cooling efficiency.
+	 */
+	protected float heatFactor;
+	public float HeatFactor { get { return heatFactor; } }
+
+	/*
+	 * Overheating flag.
+	 * When overheated the consumer
+	 * cannot operate before
+	 * completely cooling down.
+	 */
 	protected bool overheated = false;
 	public bool Overheated {
 		get { return overheated; }
 		set { overheated = value; }
 	}
 
-	// no. of units of energy consumed per time unit
-	// during normal operation - when currEnergyMultiplier = 1.0f
-	protected float baseEnergyConsumption;
-    public float BaseEnergyConsumption { get { return baseEnergyConsumption; } }
+	// COOLING
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-	protected float currentCoolantDemand = 0.0f;
+	/* 
+	 * Units of coolant consumed per time step (1s)
+	 */
+	protected float currentCoolantDemand;
 	public float CurrentCoolantDemand {
 		get { return currentCoolantDemand; }
 		set { currentCoolantDemand = value; }
 	}
 
-	protected float heatFactor;
-	public float HeatFactor { get { return heatFactor; } }
+	/*
+	 * Maximum value of CurrentCoolantDemand
+	 * that can be set with a slider.
+	 */
+	protected float maxCoolantDemand;
+	public float MaxCoolantDemand { get { return maxCoolantDemand; } }
 
-	protected const float MAX_ENERGY_OVERDRIVE = 2.0f;
-	public float MaxEnergyOverdrive { get { return MAX_ENERGY_OVERDRIVE; } }
-
-	protected const float MAX_COOLANT = 3.0f;
-	public float MaxCoolant { get { return MAX_COOLANT; } }
-
+	// UI
 	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-	public EnergyConsumer(string name, float baseEnergyConsumption, float heatFactor) {
-		this.name = name;
-		this.baseEnergyConsumption = baseEnergyConsumption;
-		this.heatFactor = heatFactor;
+	/*
+	 * Reference to the PowerSlider.
+	 * PowerSlider sets the BaseDemandMultiplier.
+	 */
+	protected Slider powerSlider, coolantSlider, heatSlider;
+	public Slider PowerSlider { 
+		get { return powerSlider; }
+		set { powerSlider = value; }
+	}
+
+	/*
+	 * Reference to the CoolantSlider.
+	 * CoolantSlider sets the CurrentCoolantDemand.
+	 */
+	public Slider CoolantSlider { 
+		get { return coolantSlider; }
+		set { coolantSlider = value; }
+	}
+
+	/*
+	 * Reference to the HeatSlider.
+	 * HeatSlider displays the Temperature.
+	 */
+    public Slider HeatSlider { 
+		get { return heatSlider; }
+		set { heatSlider = value; }
 	}
 		
-	//----
-	// < 1.0f - underperforming
-	// = 1.0f - normal operation
-	// > 1.0f - overdrive
-	protected float currentEnergyMultiplier = 1.0f;
-	public float CurrentEnergyMultiplier { 
-		get { return currentEnergyMultiplier; }
-		set { currentEnergyMultiplier = value; }
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	public EnergyConsumer(string name, float baseEnergyDemand, float heatFactor) {
+		this.name = name;
+		this.baseEnergyDemand = baseEnergyDemand;
+		this.heatFactor = heatFactor;
+		baseDemandMultiplier = 1.0f;
+		maxEnergyDemand = 2.0f;
+		temperature = 0.0f;
+		maxTemperature = 10.0f;
+		currentCoolantDemand = 0.0f;
+		maxCoolantDemand = 3.0f;
 	}
 
-	//xxxxxxx
-	// TODO add this to the interface
-	public float CurrentEnergyDemand { get { return currentEnergyMultiplier * baseEnergyConsumption; } }
-
-	public void SetSliders(Slider[] sliders) {
-		// Power Slider
-		powerSlider = sliders [0];
-		powerSlider.minValue = 0;
-		powerSlider.maxValue = MAX_ENERGY_OVERDRIVE;
-		powerSlider.onValueChanged.AddListener (delegate {
-			UpdateEnergyMultiplier ();
-		});
-
-		// Coolant Slider
-		coolantSlider = sliders [1];
-		coolantSlider.minValue = 0.0f;
-		coolantSlider.maxValue = MAX_COOLANT;
-		coolantSlider.onValueChanged.AddListener (delegate {
-			currentCoolantDemand = coolantSlider.value;
-		});
-
-		// Heat Slider
-		heatSlider = sliders [2];
-		heatSlider.interactable = false;
-		heatSlider.minValue = 0.0f;
-		heatSlider.maxValue = 10.0f;
+	public EnergyConsumer(
+		string name,
+		float baseEnergyDemand,
+		float maxEnergyDemand,
+		float maxTemperature,
+		float heatFactor,
+		float maxCoolantDemand) 
+	{
+		this.name = name;
+		this.baseEnergyDemand = baseEnergyDemand;
+		this.maxEnergyDemand = maxEnergyDemand;
+		this.maxTemperature = maxTemperature;
+		this.heatFactor = heatFactor;
+		this.maxCoolantDemand = maxCoolantDemand;
+		baseDemandMultiplier = 1.0f;
+		temperature = 0.0f;
+		currentCoolantDemand = 0.0f;
 	}
 
-	public void UpdateEnergyMultiplier () {
-		currentEnergyMultiplier = powerSlider.value;
-	}
+
 
     public override bool Equals(object obj)
     {
         if(obj is EnergyConsumer)
         {
             EnergyConsumer other = obj as EnergyConsumer;
-            return other.Name.Equals(name) && other.baseEnergyConsumption == baseEnergyConsumption;
+            return other.Name.Equals(name) && other.baseEnergyDemand == baseEnergyDemand;
         }
         return false;
     }
 
     public override int GetHashCode()
     {
-        return string.Format("{0}_{1}", name, baseEnergyConsumption).GetHashCode();
+        return string.Format("{0}_{1}", name, baseEnergyDemand).GetHashCode();
     }
 }

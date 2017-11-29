@@ -100,12 +100,12 @@ public class EnergyDistributionModelTest
             consumer2 = new EnergyConsumer("Missiles", 3.0f, 0.75f),
             consumer3 = new EnergyConsumer("Headlights", 0.3f, 1.5f),
             consumer4 = new EnergyConsumer("AC", 0.5f, 0.8f);
-        consumer1.Heat = EnergyDistributionModel.MAX_HEAT + 5.0f;
-        consumer2.Heat = 0.0f;
-        consumer2.CurrentEnergyMultiplier = 1.5f;
-        consumer3.Heat = 0.5f;
-        consumer4.CurrentEnergyMultiplier = 0.5f;
-        consumer4.Heat = -5.0f;
+		consumer1.Temperature = consumer1.MaxTemperature + 5.0f;
+        consumer2.Temperature = 0.0f;
+        consumer2.BaseDemandMultiplier = 1.5f;
+        consumer3.Temperature = 0.5f;
+        consumer4.BaseDemandMultiplier = 0.5f;
+        consumer4.Temperature = -5.0f;
         edm.AddEnergyConsumer(consumer1);
         edm.AddEnergyConsumer(consumer2);
         edm.AddEnergyConsumer(consumer3);
@@ -116,9 +116,9 @@ public class EnergyDistributionModelTest
         consumers.Add(consumer3);
         consumers.Add(consumer4);
 
-        float consumer1ExpectedHeat = EnergyDistributionModel.MAX_HEAT,
-            consumer2ExpectedHeat = consumer2.Heat + (consumer2.CurrentEnergyMultiplier * consumer2.HeatFactor),
-            consumer3ExpectedHeat = consumer3.Heat - ((1.0f - consumer3.CurrentEnergyMultiplier) * consumer3.HeatFactor),
+		float consumer1ExpectedHeat = consumer1.MaxTemperature,
+            consumer2ExpectedHeat = consumer2.Temperature + (consumer2.BaseDemandMultiplier * consumer2.HeatFactor),
+            consumer3ExpectedHeat = consumer3.Temperature - ((1.0f - consumer3.BaseDemandMultiplier) * consumer3.HeatFactor),
             consumer4ExpectedHeat = 0.0f;
 
         edm.UpdateModel();
@@ -129,10 +129,10 @@ public class EnergyDistributionModelTest
         consumer3 = consumers[2];
         consumer4 = consumers[3];
 
-        Assert.AreEqual(consumer1ExpectedHeat, consumer1.Heat);
-        Assert.AreEqual(consumer2ExpectedHeat, consumer2.Heat);
-        Assert.AreEqual(consumer3ExpectedHeat, consumer3.Heat);
-        Assert.AreEqual(consumer4ExpectedHeat, consumer4.Heat);
+        Assert.AreEqual(consumer1ExpectedHeat, consumer1.Temperature);
+        Assert.AreEqual(consumer2ExpectedHeat, consumer2.Temperature);
+        Assert.AreEqual(consumer3ExpectedHeat, consumer3.Temperature);
+        Assert.AreEqual(consumer4ExpectedHeat, consumer4.Temperature);
     }
 
     [Test]
@@ -144,16 +144,16 @@ public class EnergyDistributionModelTest
         edm.EnergyStorage = storage;
         EnergyConsumer consumer1 = new EnergyConsumer("Beam", 1.0f, 1.0f),
             consumer2 = new EnergyConsumer("Missiles", 3.0f, 0.75f);
-        consumer1.Heat = 5.0f;
-        consumer2.Heat = 0.0f;
-        consumer2.CurrentEnergyMultiplier = 1.5f;
+        consumer1.Temperature = 5.0f;
+        consumer2.Temperature = 0.0f;
+        consumer2.BaseDemandMultiplier = 1.5f;
         edm.AddEnergyConsumer(consumer1);
         edm.AddEnergyConsumer(consumer2);
         List<EnergyConsumer> consumers = new List<EnergyConsumer>();
         consumers.Add(consumer1);
         consumers.Add(consumer2);
 
-        float consumer1ExpectedHeat = consumer1.Heat - consumer1.HeatFactor;
+        float consumer1ExpectedHeat = consumer1.Temperature - consumer1.HeatFactor;
         float consumer2ExpectedHeat = 0.0f;
         float commonExpectedCurrentEnergyMultiplier = 0.0f;
 
@@ -163,9 +163,9 @@ public class EnergyDistributionModelTest
         consumer1 = consumers[0];
         consumer2 = consumers[1];
 
-        Assert.AreEqual(consumer1ExpectedHeat, consumer1.Heat);
-        Assert.AreEqual(consumer2ExpectedHeat, consumer2.Heat);
-        Assert.AreEqual(commonExpectedCurrentEnergyMultiplier, consumer1.CurrentEnergyMultiplier);
-        Assert.AreEqual(commonExpectedCurrentEnergyMultiplier, consumer2.CurrentEnergyMultiplier);
+        Assert.AreEqual(consumer1ExpectedHeat, consumer1.Temperature);
+        Assert.AreEqual(consumer2ExpectedHeat, consumer2.Temperature);
+        Assert.AreEqual(commonExpectedCurrentEnergyMultiplier, consumer1.BaseDemandMultiplier);
+        Assert.AreEqual(commonExpectedCurrentEnergyMultiplier, consumer2.BaseDemandMultiplier);
     }
 }
